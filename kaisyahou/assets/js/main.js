@@ -11,7 +11,7 @@ var randArr = new Array;
 var quizData = document.getElementById("quiz");
 var answerData = document.getElementById("answer");
 var columnData = document.getElementById("column");
-
+var nextBtn = document.getElementById("next");
 
 
 makeQuizList ();
@@ -50,10 +50,12 @@ function start() {
   columnData.innerHTML = C[0];
   columnData.style.visibility = "hidden";
   answerData.style.visibility = "hidden";
+  nextBtn.style.visibility = "hidden";
 }
 
 function MaruClick() {
   columnData.style.visibility = "visible";
+  nextBtn.style.visibility = "visible";
   
   m_btn.classList.add('gray');
   
@@ -84,6 +86,7 @@ function MaruClick() {
 
 function BatsuClick() {
   columnData.style.visibility = "visible";
+  nextBtn.style.visibility = "visible";
 
   b_btn.classList.add('gray');
 
@@ -113,6 +116,7 @@ function BatsuClick() {
 function showAnswer() {
   columnData.style.visibility = "visible";
   quizData.classList.add('warning');
+  nextBtn.style.visibility = "visible";
 
   if(randArr.length >= 5){
     Q.splice(5, 0, Q[0]);
@@ -140,7 +144,7 @@ function next() {
   A.shift();
   C.shift();
 
-  if (randArr.length == 0) {
+  if (Q.length == 0) {
     finish();
     return;
   }
@@ -154,6 +158,7 @@ function next() {
   columnData.innerHTML = C[0];
   columnData.style.visibility = "hidden";
   answerData.style.visibility = "hidden";
+  nextBtn.style.visibility = "hidden";
 }
 
 function finish() {

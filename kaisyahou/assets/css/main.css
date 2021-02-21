@@ -1,3 +1,6 @@
+html {
+  touch-action: manipulation;
+}
     body {
         font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
         font-size: 17px;
@@ -103,3 +106,26 @@
         height:25vh;
         z-index:1;
       }
+
+@media screen and (max-width:400px){
+  #quiz{
+    font-size:20px;
+    height: 290px;
+    margin-top:20px;
+  }
+  #showAnswer{
+    height:15vh;
+  }
+  .next{
+    height:85vh;
+    bottom:15vh;
+  }
+  #m_btn, #b_btn{
+    bottom:3.5vh;
+    font-size:19px;
+  }
+  .column{
+    font-size:19px;
+    top:45vh;
+  }
+}

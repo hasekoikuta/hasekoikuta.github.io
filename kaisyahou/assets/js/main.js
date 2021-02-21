@@ -1,65 +1,162 @@
-next_quiz();
-var i = 0;
+var n = quiz.length;
+var m = 10;
+var k = 0;
+var Repeat = 5;
 
-function clear() {
-  var animation = document.getElementById("_animation");
-  animation.id = "animation";
-  var circle = document.getElementById("_circle");
-  circle.id = "circle";
-  var check = document.getElementById("_check");
-  check.id = "check";
-  window.setTimeout("rename()", 300);
+var Q = new Array;
+var A = new Array;
+var C = new Array;
+var randArr = new Array;
+
+var quizData = document.getElementById("quiz");
+var answerData = document.getElementById("answer");
+var columnData = document.getElementById("column");
+
+
+
+makeQuizList ();
+
+function makeQuizList () {
+  var arr = new Array;
+  for (i = 0; i < n; i++) {
+    arr[i] = i;
+  }//arr[]=[0,1,2,,,n-1]
+
+
+  var h = 0;
+  for (i = 0; i < m; i++) {
+    h = Math.floor(Math.random() * n - i);
+    randArr[i] = arr[h];
+    arr.splice(h, 1);
+  }//randArr[] = [1,4,5,3,2]
+
+  var a = new Array;
+  for (i = 0; i < Repeat; i++) {
+    a = a.concat(randArr);
+  }//randArr[] = [1,4,5,3,2,1,4,5,,,,]
+  randArr = a;
+
+  for (i = 0; i < randArr.length; i++) {
+    Q[i] = quiz[randArr[i]];
+    A[i] = answer[randArr[i]];
+    C[i] = column[randArr[i]];
+  }
+  start();
 }
 
-function rename() {
-  var animation = document.getElementById("animation");
-  animation.id = "_animation";
-  var circle = document.getElementById("circle");
-  circle.id = "_circle";
-  var check = document.getElementById("check");
-  check.id = "_check";
+function start() {
+  quizData.innerHTML = Q[0];
+  answerData.innerHTML = A[0];
+  columnData.innerHTML = C[0];
+  columnData.style.visibility = "hidden";
+  answerData.style.visibility = "hidden";
 }
-// ボタンがクリックされたとき呼び出されるハンドラ
+
 function MaruClick() {
-  var answer = document.getElementById("answer");
-  var column = document.getElementById("column");
-  var b_btn = document.getElementById("b_btn");
-  if (answer.innerHTML == "○") {
-    document.getElementById("quiz").innerHTML = "";
-    window.setTimeout("next_quiz();", 300);
-    clear();
-  } else {
-    column.style.visibility = "visible";
-    answer.style.visibility = "visible";
+  columnData.style.visibility = "visible";
+  
+  m_btn.classList.add('gray');
+  
+  
+  if (answerData.innerHTML == "×") {
+
+    quizData.classList.add("warning");
+    if(randArr.length >= 5){
+      Q.splice(5, 0, Q[0]);
+      A.splice(5, 0, A[0]);
+      C.splice(5, 0, C[0]);
+      Q.splice(2, 0, Q[0]);
+      A.splice(2, 0, A[0]);
+      C.splice(2, 0, C[0]);
+      Q.splice(1, 0, Q[0]);
+      A.splice(1, 0, A[0]);
+      C.splice(1, 0, C[0]);
+    } else {
+      Q.splice(1, 0, Q[0]);
+      A.splice(1, 0, A[0]);
+      C.splice(1, 0, C[0]);
+      Q.splice(1, 0, Q[0]);
+      A.splice(1, 0, A[0]);
+      C.splice(1, 0, C[0]);
+    }
   }
 }
 
 function BatsuClick() {
-  var answer = document.getElementById("answer");
-  var column = document.getElementById("column");
-  var m_btn = document.getElementById("m_btn");
-  if (answer.innerHTML == "×") {
-    document.getElementById("quiz").innerHTML = "";
-    window.setTimeout("next_quiz();", 300);
-    clear();
+  columnData.style.visibility = "visible";
+
+  b_btn.classList.add('gray');
+
+  if (answerData.innerHTML == "o") {
+    quizData.classList.add('warning');
+
+    if(randArr.length >= 5){
+      Q.splice(5, 0, Q[0]);
+      A.splice(5, 0, A[0]);
+      C.splice(5, 0, C[0]);
+      Q.splice(2, 0, Q[0]);
+      A.splice(2, 0, A[0]);
+      C.splice(2, 0, C[0]);
+      Q.splice(1, 0, Q[0]);
+      A.splice(1, 0, A[0]);
+      C.splice(1, 0, C[0]);
+    } else {
+      Q.splice(1, 0, Q[0]);
+      A.splice(1, 0, A[0]);
+      C.splice(1, 0, C[0]);
+      Q.splice(1, 0, Q[0]);
+      A.splice(1, 0, A[0]);
+      C.splice(1, 0, C[0]);
+    }
+  }
+}
+function showAnswer() {
+  columnData.style.visibility = "visible";
+  quizData.classList.add('warning');
+
+  if(randArr.length >= 5){
+    Q.splice(5, 0, Q[0]);
+    A.splice(5, 0, A[0]);
+    C.splice(5, 0, C[0]);
+    Q.splice(2, 0, Q[0]);
+    A.splice(2, 0, A[0]);
+    C.splice(2, 0, C[0]);
+    Q.splice(1, 0, Q[0]);
+    A.splice(1, 0, A[0]);
+    C.splice(1, 0, C[0]);
   } else {
-    answer.style.visibility = "visible";
-    column.style.visibility = "visible";
+    Q.splice(1, 0, Q[0]);
+    A.splice(1, 0, A[0]);
+    C.splice(1, 0, C[0]);
+    Q.splice(1, 0, Q[0]);
+    A.splice(1, 0, A[0]);
+    C.splice(1, 0, C[0]);
   }
 }
 
+function next() {
+  randArr.shift();
+  Q.shift();
+  A.shift();
+  C.shift();
 
-function next_quiz() {
-  var quizData = document.getElementById("quiz");
-  var answerData = document.getElementById("answer");
-  var columnData = document.getElementById("column");
-  var max = quiz.length;
-  var r = Math.floor(Math.random() * max);
-  quizData.innerHTML = quiz[r];
-  answerData.innerHTML = answer[r];
-  columnData.innerHTML = column[r];
+  if (randArr.length == 0) {
+    finish();
+    return;
+  }
+
+  b_btn.classList.remove("gray");
+  m_btn.classList.remove("gray");
+  quizData.classList.remove("warning");
+
+  quizData.innerHTML = Q[0];
+  answerData.innerHTML = A[0];
+  columnData.innerHTML = C[0];
   columnData.style.visibility = "hidden";
   answerData.style.visibility = "hidden";
-  i++;
-  document.getElementById("count").innerHTML = i + "問目";
+}
+
+function finish() {
+
+  quizData.innerHTML = "Finish";
 }

@@ -3,28 +3,25 @@
 <head>
   <title>Document</title>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <meta name="description" content="Content">
   <link rel="stylesheet" href="assets/css/main.css" />
   <!--link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet"-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosansjp.css">
 </head>
 <body>
-<header><div id="count">0問目</div></header>
-  <div id="quiz"></div> 
+  <div id="quiz"></div>
   <button type="button" id="m_btn" onclick="MaruClick()">はい</button> 
   <button type="button" id="b_btn" onclick="BatsuClick()">いいえ</button>
+  <button type="button" id="showAnswer" onclick="showAnswer()"></button>
+
+  <button type="button" class="next" onclick="next()"></button>
   
   <div class="column">
     <span id="answer"></span>
     <span id="column"></span>
   </div>
   
-  <div id="_animation">
-    <div id="_circle">
-	  <span id="_check"></span>
-	</div>
-  </div>
   
  <script src="assets/js/list.js"></script>
 <script src="assets/js/main.js"></script>

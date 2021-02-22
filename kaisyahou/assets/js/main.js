@@ -1,7 +1,7 @@
 var n = quiz.length;
-var m = 10;
+var m = 1;
 var k = 0;
-var Repeat = 5;
+var Repeat = 4;
 
 var Q = new Array;
 var A = new Array;
@@ -12,6 +12,7 @@ var quizData = document.getElementById("quiz");
 var answerData = document.getElementById("answer");
 var columnData = document.getElementById("column");
 var nextBtn = document.getElementById("next");
+var frame = document.getElementById("frame");
 
 
 makeQuizList ();
@@ -51,6 +52,7 @@ function start() {
   columnData.style.visibility = "hidden";
   answerData.style.visibility = "hidden";
   nextBtn.style.visibility = "hidden";
+  frame.style.visibility = "hidden";
 }
 
 function MaruClick() {
@@ -144,24 +146,25 @@ function next() {
   A.shift();
   C.shift();
 
+  b_btn.classList.remove("gray");
+  m_btn.classList.remove("gray");
+  quizData.classList.remove("warning");
+
+
+  columnData.style.visibility = "hidden";
+  answerData.style.visibility = "hidden";
+  nextBtn.style.visibility = "hidden";
   if (Q.length == 0) {
     finish();
     return;
   }
 
-  b_btn.classList.remove("gray");
-  m_btn.classList.remove("gray");
-  quizData.classList.remove("warning");
-
   quizData.innerHTML = Q[0];
   answerData.innerHTML = A[0];
   columnData.innerHTML = C[0];
-  columnData.style.visibility = "hidden";
-  answerData.style.visibility = "hidden";
-  nextBtn.style.visibility = "hidden";
 }
 
 function finish() {
-
-  quizData.innerHTML = "Finish";
+  frame.style.visibility = "visible";
+  quizData.innerHTML = "<a href='javascript:makeQuizList()'>Finish</a>";
 }

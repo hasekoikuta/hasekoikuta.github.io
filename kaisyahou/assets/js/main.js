@@ -65,7 +65,7 @@ function MaruClick() {
   if (answerData.innerHTML == "×") {
 
     quizData.classList.add("warning");
-    if(randArr.length >= 5){
+    if(Q.length >= 5){
       Q.splice(5, 0, Q[0]);
       A.splice(5, 0, A[0]);
       C.splice(5, 0, C[0]);
@@ -95,7 +95,7 @@ function BatsuClick() {
   if (answerData.innerHTML == "o") {
     quizData.classList.add('warning');
 
-    if(randArr.length >= 5){
+    if(Q.length >= 5){
       Q.splice(5, 0, Q[0]);
       A.splice(5, 0, A[0]);
       C.splice(5, 0, C[0]);

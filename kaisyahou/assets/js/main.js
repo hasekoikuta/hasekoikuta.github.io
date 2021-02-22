@@ -1,5 +1,5 @@
 var n = quiz.length;
-var m = 1;
+var m = 5;
 var k = 0;
 var Repeat = 4;
 

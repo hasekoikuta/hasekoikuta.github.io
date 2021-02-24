@@ -13,6 +13,7 @@ var columnData = document.getElementById("column");
 var nextBtn = document.getElementById("next");
 var frame = document.getElementById("frame");
 var showAnswer = document.getElementById("showAnswer");
+var bd = document.getElementById("bd");
 
 makeQuizList();
 
@@ -47,7 +48,6 @@ function start() {
   columnData.style.visibility = "hidden";
   answerData.style.visibility = "hidden";
   nextBtn.style.visibility = "hidden";
-  frame.style.visibility = "hidden";
   showAnswer.innerHTML = k + 1;
 }
 
@@ -152,8 +152,11 @@ function next() {
 
   if (randArr[0] == "再出題"){
     showAnswer.innerHTML = "再";
+    quizData.classList.add("darken");
+
   }else{
     k++;
+    quizData.classList.remove("darken");
     showAnswer.innerHTML = k + 1;
   }
 

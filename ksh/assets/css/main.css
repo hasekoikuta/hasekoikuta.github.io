@@ -17,6 +17,8 @@ html {
         width: 95vw;
         margin:0;
         font-weight:bold;
+		
+  background-color: #d8d8d8;
     }
     #quiz {
       width:78vw;

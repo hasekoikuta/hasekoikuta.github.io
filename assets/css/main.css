@@ -1,0 +1,60 @@
+body {
+    font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+    font-size: 14px;
+    letter-spacing:0.5px;   
+    width: 100%;
+    margin:0;
+    background:rgb(158, 185, 185);
+    color:rgb(32, 50, 110);
+    overflow:hidden;
+}
+.t-0{
+    width:100vw;
+    height:200px;
+    overflow:hidden;
+    position: absolute;
+}
+.t-1{
+    position:absolute;
+    width:100%;
+    height:100vw;
+    background: rgb(158, 185, 185);
+    border-radius:50%;
+    transform: scale(2);
+    margin-top:-360px;
+}
+.top{
+    width:90vw;
+    height:200px;
+    background:rgb(255, 255, 255);
+    margin:10px 5vw;
+    border-radius:10px;
+    box-shadow:0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+    position:absolute;
+}
+
+.main{
+    padding:250px 19px 0;
+    height:900px;
+    background:#fff;
+}
+.gray{
+    width:300px;
+    height: 40px;
+    background: rgb(245, 245, 245);
+
+}
+iframe{
+    width:100vw;
+    height:100vh;
+    position:absolute;
+    border:none;
+    left:0;
+    top:0;
+}
+.hidden{
+    display:none;
+}
+.visible{
+    display:block;
+}

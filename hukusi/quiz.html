@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ALC-キクジュク3600</title>
+<link rel="apple-touch-icon" href="kiku-juku-icon.jpg">
+<link rel="stylesheet" href="css/quiz.css">
+</head>
+<body>
+	<a href="javascript:small()">
+		<div class="header">
+			<b class="black">
+				<b class="blue"></b>
+				<span id="level">0/20</span>
+			</b>
+				総解答数<span id="number"></span>問
+				<a href="javascript:check()"><span class="check"></span></a>
+				<div id="check">
+<div id="text_k">古文単語</div>
+<div id="text_g"></div>
+<div id="container"></div>
+<div class="pan show"><a href="javascript:show()" class="button">a</a>答　え</div>
+<div class="pan countup"><a href="javascript:maru()" class="button">a</a>わかった</div>
+<div class="pan noidea"><a href="javascript:batsu()" class="button">a</a>わからない</div>
+</div>
+
+		</div>
+	</a>
+	<div id="text_q"></div>
+	<h2>選択</h2>
+	<div id="text_s"></div>
+	<a href="javascript:big()"><h2>誤答</h2></a>
+	<div id="text_a"></div>
+	<form name="fm">
+		<input type="range" min="1" max="2000" name="A" value="100">
+	</form>
+  <form name="fn">
+    <input type="tel" class="tel" name="B" value="10">
+  </form>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script>
+var num = getCookie('COUNT');
+if(!num){
+	num = 0;
+}
+num--;
+</script>
+<script type="text/javascript" src="js/list.js"></script>
+<script type="text/javascript" src="js/quiz.3.0.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109934370-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-109934370-1');
+</script>
+
+
+</body>
+</html>

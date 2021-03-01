@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ALC Kiku-Juku List 3000</title>
+<link rel="stylesheet" href="../css/color.css">
+</head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109934370-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-109934370-1');
+</script>
+<style>
+body{
+    font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+}
+table{
+ font-size:11px;
+ border-collapse:collapse;
+}
+td{
+  padding:10px 2px;
+  border: solid 1px #aaa;
+}
+th{
+  font-size:
+
+</style>
+<body>
+<table>
+  <thead class="bg--belize color--white">
+   <th>No.</th>
+   <th>単語</th>
+   <th>訳</th>
+  </thead>
+  <tbody id="inner"></tbody>
+</table>
+<script type="text/javascript" src="js/list.js"></script>
+<script type="text/javascript">
+set();
+
+function set(){
+	count = 0;
+	countup();
+}
+function countup(){
+	var k, l,n;
+	l = "";
+	for (n=0;n< al[0].length;n++) {
+		count++;
+		k = "<tr><td>" + count + "</td><td>" + al[0][n] + "</td><td>" + al[1][n] + "</td></tr>";
+		l = l + k;
+		document.getElementById("inner").innerHTML = l;
+	}
+ }
+
+</script>
+</body>

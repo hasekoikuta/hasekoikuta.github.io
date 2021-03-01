@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>古文単語</title>
+<style>
+body{
+    font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+    margin:10px 0 0 20px;
+    padding:0;
+}
+header{
+  height:20px;
+  width:100%;
+}
+#count{
+  position:absolute;
+  right:70px;
+}
+#text_k{
+  margin:30px 0 12px 0px;
+  font-size:28px;
+}
+#text_g{
+  margin-top:30px;
+}
+#text_a{
+  position:absolute;
+  bottom:12px;
+  height:350px;
+  width:80vw;
+  border:1px solid #aaa;
+  overflow-y:scroll;
+-webkit-overflow-scrolling: touch;
+
+}
+
+.button{
+  display:block;
+  background:#aaa;
+  border-radius:50%;
+  color:transparent;
+}
+.pan{
+  position:fixed;
+  right:30px;
+  width:40px;
+  text-align:canter;
+}
+.show{
+  top:60px;
+  font-size:10px;
+}
+.countup{
+  top:160px;
+  font-size:10px;
+}
+.maru{
+  top:240px;
+  font-size:10px;
+}
+.ans{
+  padding:5px 12px;
+  width:90%;
+  border-bottom:1px solid #ccc;
+  font-size:18px;
+}
+.ans a{
+  color:#000;
+  text-decoration:none;
+}
+.a{
+  padding-left:10px;
+  font-size:12px;
+}
+.show a{
+  width:60px;
+  height:60px;
+}
+.countup a{
+  width:50px;
+  height:50px;
+}
+.maru a{
+  width:50px;
+  height:50px;
+}
+</style>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109934370-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-109934370-1');
+</script>
+</head>
+<body>
+<header>
+  <form name="fn">
+    <input type="tel" class="tel" name="B" value="10">
+  </form>
+<div id="count">0問目</div>
+</header>
+<div id="text_k">古文単語</div>
+<div id="text_g"></div>
+<div id="container"></div>
+<div id="text_a"></div>
+
+<div class="pan show"><a href="javascript:show()" class="button">a</a>答　え</div>
+<div class="pan countup"><a href="javascript:maru()" class="button">a</a>正　解</div>
+<div class="pan maru"><a href="javascript:batu()" class="button">a</a>不正解</div>
+
+<script type="text/javascript" src="js/list.js"></script>
+<script type="text/javascript">
+
+setReady();
+
+function setReady() {
+	count = 0;
+	w = "";
+	Countup();
+	for(var i = al[0].length - 1; i > 0; i--){
+	    var r = Math.floor(Math.random() * (i + 1));
+	    var tmp = al[0][i];
+	    var tmp2 = al[1][i];
+	    al[0][i] = al[0][r];
+	    al[1][i] = al[1][r];
+	    al[0][r] = tmp;
+	    al[1][r] = tmp2;
+	}
+
+}
+
+function Countup(){
+	count++;
+	l = eval(document.fn.B.value);
+		a = Math.floor(Math.random() * l);
+		b = al[0][a];
+		c = al[1][a];
+	document.getElementById("text_k").innerHTML = b;
+	document.getElementById("text_g").innerHTML ="";
+	document.getElementById("count").innerHTML = count + "問目";
+
+}
+function show(){
+	document.getElementById("text_g").innerHTML = c;
+}
+function maru(){
+	document.getElementById("text_g").innerHTML = c;
+	window.setTimeout("Countup();", 0);
+}
+function batu(){
+	w = "<div class='ans'><a href='https://kobun.weblio.jp/content/" + al[0][a] +"'><div class='w'>"+al[0][a]+ "</div><div class='a'>" + c +"</div></a></div>"+ w;
+	document.getElementById("text_a").innerHTML = w;
+	document.getElementById("text_g").innerHTML = c;
+	window.setTimeout("Countup();", 0);
+}
+</script>
+
+</body>

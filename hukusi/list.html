@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>古文単語</title>
+
+</head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109934370-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-109934370-1');
+</script>
+<style>
+body{
+    font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+}
+#text_k{
+  text-align:center;
+
+  padding-top:15vh;
+  padding-bottom:10vh;
+  font-size:12vw;
+  color:#483d8b;
+
+  
+}
+#text_g{
+  text-align:center;
+
+  font-size:5vw;
+}
+form{
+  width:100%;
+}
+input{
+        -webkit-transform:rotate(-90deg);
+           -moz-transform:rotate(-90deg);
+             -o-transform:rotate(-90deg);
+                transform:rotate(-90deg);
+
+        width:90vh;
+top:45vh;
+}
+.ans{
+position:absolute;
+  left:-40vh;;
+  float:left;
+}
+.next{
+  right:-40vh;
+position:absolute;
+
+  float:right;
+}
+</style>
+<body>
+<form name="fm">
+  <input class="ans"type="range" min="10" max="600" name="A" value="300">
+  <input class="next"type="range" min="5" max="400" name="B" value="100">
+</form>
+<div id="text_k">古文単語</div>
+<div id="text_g"></div>
+
+<script type="text/javascript" src="js/list.js"></script>
+<script type="text/javascript">
+
+countup();
+function countup(){
+	var a,b,c,d,r;
+		a = Math.floor(Math.random() * 335);
+		b = al[0][a];
+		c = al[1][a];
+		d = eval(document.fm.B.value)*10;
+		r = d + eval(document.fm.A.value)*10;
+	document.getElementById("text_k").innerHTML = b;
+	document.getElementById("text_g").innerHTML ="";
+	window.setTimeout( function() {document.getElementById("text_g").innerHTML = c;}, d );
+	window.setTimeout("countup();", r);
+ }
+
+
+</script>
+</body>

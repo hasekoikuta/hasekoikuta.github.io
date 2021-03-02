@@ -7,9 +7,9 @@ html {
   position:absolute;
   top:0;
   z-index:-1;
-  background-color: #d8d8d8;
   
 }
+
     body {
         font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
         font-size: 17px;
@@ -17,8 +17,6 @@ html {
         width: 95vw;
         margin:0;
         font-weight:bold;
-		
-  background-color: #d8d8d8;
     }
     #quiz {
       width:78vw;
@@ -27,20 +25,18 @@ html {
         justify-content: center;
         align-items: center;
       padding:5vh 8vw;
-      margin:20px 3vw;
-      font-weight:bold;
+      margin:3vh 3vw;
+      top:45px;
+      font-weight:500;
       font-size:28px;
       line-height:1.7em;
       color:#404040;
       border-radius: 19px;
-background: #d8d8d8;
-box-shadow:  7px 7px 18px #c5c5c5,
-             -7px -7px 18px #ebebeb;
     }
     .column{
       font-size:25px;
       line-height:1.7em;
-      margin:20px 2vw;
+      margin:60px 2vw;
       padding:5px 4vw;
       width:88vw;
       font-weight:500;
@@ -57,7 +53,7 @@ box-shadow:  7px 7px 18px #c5c5c5,
       position: fixed;
       right:10px;
       width:90px;
-      height:10vh;
+      height:15vh;
       font-size:45px;
       font-weight:500;
       color:rgba(126, 126, 126, 0.05);
@@ -72,6 +68,16 @@ box-shadow:  7px 7px 18px #c5c5c5,
     #b_btn {
       bottom:9vh;
     }
+    #stt{
+      width:100px;
+      height:43px;
+      border-radius: 5px;;
+      background: #404040;
+      position:fixed;
+      bottom:8px;
+      right:2vw;
+
+    }
     #showAnswer{
       position: fixed;
 
@@ -82,16 +88,10 @@ box-shadow:  7px 7px 18px #c5c5c5,
       padding: 0;
       appearance: none;
       right:10px;
-      bottom:10px;
-      width:90px;
-      height:90px;
-      border-radius: 50%;
-      background: linear-gradient(145deg, #e7e7e7, #c2c2c2);
-      box-shadow:  9px 9px 17px #c5c5c5,
-                   -9px -9px 17px #ebebeb;
+      top:40px;
       color:#bbb9b9;
-      font-weight:bold;
-      font-size:39px;
+      font-weight:500;
+      font-size:17px;
       z-index:1;
     }
 
@@ -138,14 +138,10 @@ iframe{
 }
 @media screen and (max-width:400px){
   #quiz{
-    font-size:18px;
+    font-size:17px;
     margin-top:20px;
     padding:4vw;
     width:86vw;
-  }
-  #showAnswer{
-    width:60px;
-    height:60px;
   }
   iframe{
     width:60px;
@@ -156,13 +152,29 @@ iframe{
     bottom:50vh;
   }
   #b_btn{
-    bottom:39vh;
+    bottom:35vh;
 }
   .next{
 
     bottom:0;
   }
   .column{
-    font-size:17px;
+    font-size:16px;
   }
+}
+.tel{
+  font-size:33px;
+  box-shadow:0;
+  border:0;
+  border-bottom:1px solid #ddd;
+  color: #636363;
+  padding:2vw 5vw 5vw;
+  width:90vw;
+  margin:0 ;
+  position: fixed;
+  top:0px;
+  font-weight:600;
+  border-radius: 0%;
+  background:#fff;
+
 }

@@ -80,8 +80,14 @@ function MaruClick() {
   m_btn.classList.add('gray');
 
   if (answerData.innerHTML == "×") {
-
     quizData.classList.add("warning");
+      var rArr = [10, 5, 2];
+      for (i = 0; i < rArr.length; i++) {
+        Q.splice(rArr[i], 0, Q[0]);
+        A.splice(rArr[i], 0, A[0]);
+        C.splice(rArr[i], 0, C[0]);
+        randArr.splice(rArr[i], 0, "再出題");
+      }
   }
 
 }
@@ -95,7 +101,13 @@ function BatsuClick() {
   if (answerData.innerHTML == "o") {
 
     quizData.classList.add("warning");
-
+      var rArr = [10, 5, 2];
+      for (i = 0; i < rArr.length; i++) {
+        Q.splice(rArr[i], 0, Q[0]);
+        A.splice(rArr[i], 0, A[0]);
+        C.splice(rArr[i], 0, C[0]);
+        randArr.splice(rArr[i], 0, "再出題");
+      }
     }
 }
 
@@ -103,15 +115,6 @@ function showAnswer() {
   columnData.style.visibility = "visible";
   quizData.classList.add('warning');
   nextBtn.style.visibility = "visible";
-  if (Q.length >= 40) {
-    var rArr = [40, 20, 10, 5, 2, 1];
-    for (i = 0; i < rArr.length; i++) {
-      Q.splice(rArr[i], 0, Q[0]);
-      A.splice(rArr[i], 0, A[0]);
-      C.splice(rArr[i], 0, C[0]);
-      randArr.splice(rArr[i], 0, "再出題");
-    }
-  }
 }
 
 function next() {
@@ -135,11 +138,14 @@ function next() {
   quizData.innerHTML = Q[0];
   answerData.innerHTML = A[0];
   columnData.innerHTML = C[0];
+  if (randArr[0] == "再出題"){
+    quizData.classList.add("darken");
 
+  }else{
     k++;
     quizData.classList.remove("darken");
     showAnswer.innerHTML = k + "<span style='font-size:13px;'>問目</span>";
-  
+  }
 }
 
 function finish() {

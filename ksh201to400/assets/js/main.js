@@ -71,17 +71,7 @@ function MaruClick() {
         randArr.splice(rArr[i], 0, "再出題");
       }
     }
-  } else if (randArr[0] !== "再出題") {
-    if (Q.length >= 35) {
-      var rArr = [40, 15, 5];
-      for (i = 0; i < rArr.length; i++) {
-        Q.splice(rArr[i], 0, Q[0]);
-        A.splice(rArr[i], 0, A[0]);
-        C.splice(rArr[i], 0, C[0]);
-        randArr.splice(rArr[i], 0, "再出題");
-      }
-    }
-  }
+  } 
 }
 
 function BatsuClick() {
@@ -102,34 +92,11 @@ function BatsuClick() {
         C.splice(rArr[i], 0, C[0]);
         randArr.splice(rArr[i], 0, "再出題");
       }
-    } else if (randArr[0] !== "再出題") {
-      if (Q.length >= 35) {
-        var rArr = [40, 15, 5];
-        for (i = 0; i < rArr.length; i++) {
-          Q.splice(rArr[i], 0, Q[0]);
-          A.splice(rArr[i], 0, A[0]);
-          C.splice(rArr[i], 0, C[0]);
-          randArr.splice(rArr[i], 0, "再出題");
-        }
-      }
-    }
+    } 
   }
 }
 
-function showAnswer() {
-  columnData.style.visibility = "visible";
-  quizData.classList.add('warning');
-  nextBtn.style.visibility = "visible";
-  if (Q.length >= 40) {
-    var rArr = [40, 20, 10, 5, 2, 1];
-    for (i = 0; i < rArr.length; i++) {
-      Q.splice(rArr[i], 0, Q[0]);
-      A.splice(rArr[i], 0, A[0]);
-      C.splice(rArr[i], 0, C[0]);
-      randArr.splice(rArr[i], 0, "再出題");
-    }
-  }
-}
+
 
 function next() {
   randArr.shift();

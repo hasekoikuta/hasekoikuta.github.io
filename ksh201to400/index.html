@@ -16,7 +16,6 @@
  <div id="quiz"></div>
   <button type="button" id="m_btn" onclick="MaruClick()">Y</button> 
   <button type="button" id="b_btn" onclick="BatsuClick()">N</button>
-  <button type="button" id="showAnswer" onclick="showAnswer()">？</button>
 
   <button type="button" class="next" id="next" onclick="next()"></button>
   
@@ -24,6 +23,18 @@
     <span id="answer"></span>
     <span id="column"></span>
   </div>
+
+  <div id="navOpen"></div>
+
+  <div id="map" class="visi">
+    Total Score
+    <button type="button" id="showAnswer" onclick="showAnswer()"></button>
+  <form name="numbers">
+    <input type="number" class="tel" name="nFrom" value="0">
+  <input type="number" class="tel" name="nTo" value="100">
+  </form>
+  <div id="flesh">Go</div>
+</div>
 
  <script src="assets/js/list.js"></script>
 <script src="assets/js/main.js"></script>

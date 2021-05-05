@@ -1,8 +1,8 @@
-var n = 400;
-var s = 200;
-var m = n;
+var nFrom = eval(document.numbers.nFrom.value);
+var nTo = eval(document.numbers.nTo.value);
+var nRange = nTo - nFrom;
 var k = 0;
-var Repeat = 1;
+var Repeat = 3;
 
 var Q = new Array;
 var A = new Array;
@@ -15,19 +15,34 @@ var nextBtn = document.getElementById("next");
 var frame = document.getElementById("frame");
 var showAnswer = document.getElementById("showAnswer");
 var bd = document.getElementById("bd");
+var navOpen = document.getElementById("navOpen");
+var map = document.getElementById("map");
+
 
 makeQuizList();
 
+navOpen.onclick = function () {
+  map.classList.toggle("visi");
+}
+flesh.onclick = function () {
+ nFrom = eval(document.numbers.nFrom.value);
+ nTo = eval(document.numbers.nTo.value);
+ nRange = nTo - nFrom;
+  makeQuizList();
+  map.classList.toggle("visi");
+}
+
 function makeQuizList() {
   var arr = new Array;
-  for (i = 0; i < n; i++) {
-    arr[i] = i;
-  } //arr[]=[0,1,2,,,n-1]
+  randArr = [];
+  for (i = 0; i < nRange; i++) {
+    arr[i] = i + 1;
+  } //arr[]=[0,1,2,,,nRange-1]
   var h = 0;
-  for (i = 0; i < m; i++) {
-    h = s + Math.floor(Math.random() * n - i);
-    randArr[i] = arr[h];
-    arr.splice(h, 1);
+  for (i = 0,j = nRange; i < nRange; i++, j--) {
+    h = Math.floor(Math.random() * j );
+    randArr.push(arr[h] + nFrom);
+    arr[h] = arr[j - 1];
   } //randArr[] = [1,4,5,3,2]
   var a = new Array;
   for (i = 0; i < Repeat; i++) {

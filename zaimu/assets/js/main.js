@@ -17,7 +17,10 @@ var showAnswer = document.getElementById("showAnswer");
 var bd = document.getElementById("bd");
 var navOpen = document.getElementById("navOpen");
 var map = document.getElementById("map");
+var show_max = document.getElementById("show_max");
 
+
+show_max.innerHTML = quiz.length;
 
 makeQuizList();
 
@@ -95,7 +98,7 @@ function BatsuClick() {
   nextBtn.style.visibility = "visible";
   b_btn.classList.add('gray');
 
-  if (answerData.innerHTML == "o") {
+  if (answerData.innerHTML == "○") {
 
     quizData.classList.add("warning");
 

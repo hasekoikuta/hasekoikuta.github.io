@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ALC Kiku-Juku List 3000</title>
+</head>
+<style>
+body{
+    font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+	font-size: 19px;
+	font-weight: 400;
+	line-height: 23px;
+	letter-spacing: 0.5px;
+	background: rgb(250, 250, 250);
+	padding:0;
+	margin: 0;
+}
+.section{
+	background: #fff;
+	margin:0px 8px 100px;
+	padding:8%;
+	box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.2);
+	border-radius: 15px;
+}
+.red{
+	color:rgb(156, 74, 74);
+}
+.blue{
+	color:rgb(32, 61, 122);
+}
+input{
+	font-size:20px;
+	border:none;
+	margin:10px 20vw;
+	width:60vw;
+	text-align: center;
+	padding:10px 0;
+
+}
+#go{
+	margin:20px 40vw;
+	width:20vw;
+	padding:10px 0;
+	text-align: center;
+	background: #fff;
+	border-radius: 6px;
+}
+</style>
+<body>
+	<form name="nums">
+		<input type="number" name="num" value="1">
+</form>
+<div id="go">Go</div>
+  <div id="inner"></div>
+<script type="text/javascript" src="assets/js/list.js"></script>
+<script type="text/javascript">
+set();
+
+var go = document.getElementById("go");
+go.onclick = function () {
+	countup();
+}
+function set(){
+	countup();
+}
+function countup(){
+	var k, l,n;
+	l = "";
+	var p = eval(document.nums.num.value);
+	for (n=p-1;n< p + 100; n++) {
+		if (answer[n] == "×") {
+			k = "<div class='section red'><div class='quiz'>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
+		}
+		else if (answer[n] == "○"){
+			k = "<div class='section blue'><div class='quiz '>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
+		}
+		l = l + k;
+		document.getElementById("inner").innerHTML = l;
+	}
+ }
+
+</script>
+</body>

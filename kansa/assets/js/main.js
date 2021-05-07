@@ -2,7 +2,7 @@ var nFrom = eval(document.numbers.nFrom.value);
 var nTo = eval(document.numbers.nTo.value);
 var nRange = nTo - nFrom;
 var k = 0;
-var Repeat = 3;
+var Repeat = eval(document.numbers.nRepeat.value);
 
 var Q = new Array;
 var A = new Array;
@@ -29,11 +29,15 @@ flesh.onclick = function () {
  nFrom = eval(document.numbers.nFrom.value);
  nTo = eval(document.numbers.nTo.value);
  nRange = nTo - nFrom;
+ Repeat = eval(document.numbers.nRepeat.value);
   makeQuizList();
   map.classList.toggle("visi");
 }
 
 function makeQuizList() {
+  Q=[];
+  A=[];
+  C=[];
   var arr = new Array;
   randArr = [];
   for (i = 0; i < nRange; i++) {
@@ -147,6 +151,5 @@ function next() {
 }
 
 function finish() {
-  frame.style.visibility = "visible";
   quizData.innerHTML = "<a href='javascript:makeQuizList()'>Finish</a>";
 }

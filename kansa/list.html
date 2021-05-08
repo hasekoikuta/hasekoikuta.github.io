@@ -64,15 +64,16 @@ function set(){
 	countup();
 }
 function countup(){
-	var k, l,n;
+	var k, l,n, q;
 	l = "";
 	var p = eval(document.nums.num.value);
 	for (n=p-1;n< p + 100; n++) {
+		q= n+1;
 		if (answer[n] == "×") {
-			k = "<div class='section red'>"+ eval(n) + 1 +"<div class='quiz'>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
+			k = "<div class='section red'>"+ q+"<div class='quiz'>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
 		}
 		else if (answer[n] == "○"){
-			k = "<div class='section blue'>"+ eval(n) + 1 +"<div class='quiz '>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
+			k = "<div class='section blue'>"+ q+"<div class='quiz '>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
 		}
 		l = l + k;
 		document.getElementById("inner").innerHTML = l;

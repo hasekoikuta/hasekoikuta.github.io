@@ -69,10 +69,10 @@ function countup(){
 	var p = eval(document.nums.num.value);
 	for (n=p-1;n< p + 100; n++) {
 		if (answer[n] == "×") {
-			k = "<div class='section red'><div class='quiz'>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
+			k = "<div class='section red'>" p+n-1 "<div class='quiz'>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
 		}
 		else if (answer[n] == "○"){
-			k = "<div class='section blue'><div class='quiz '>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
+			k = "<div class='section blue'>" p+n-1 "<div class='quiz '>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
 		}
 		l = l + k;
 		document.getElementById("inner").innerHTML = l;

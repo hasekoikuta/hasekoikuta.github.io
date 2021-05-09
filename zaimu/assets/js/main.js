@@ -4,10 +4,10 @@ var nRange = nTo - nFrom + 1;
 var k = 0;
 var Repeat = eval(document.numbers.nRepaet.value);
 
-var Q = new Array;
-var A = new Array;
-var C = new Array;
-var randArr = new Array;
+var Q = [];
+var A = [];
+var C = [];
+var randArr = [];
 var quizData = document.getElementById("quiz");
 var answerData = document.getElementById("answer");
 var columnData = document.getElementById("column");
@@ -18,8 +18,7 @@ var bd = document.getElementById("bd");
 var navOpen = document.getElementById("navOpen");
 var map = document.getElementById("map");
 var show_max = document.getElementById("show_max");
-
-
+var ReArr = [];
 
 show_max.innerHTML = quiz.length;
 
@@ -27,7 +26,7 @@ makeQuizList();
 
 navOpen.onclick = function () {
   map.classList.toggle("visi");
-}
+};
 flesh.onclick = function () {
  nFrom = eval(document.numbers.nFrom.value);
  nTo = eval(document.numbers.nTo.value);
@@ -35,7 +34,7 @@ flesh.onclick = function () {
  nRange = nTo - nFrom + 1;
   makeQuizList();
   map.classList.toggle("visi");
-}
+};
 
 function nextStep(){
   nFrom += nRange;
@@ -48,7 +47,7 @@ function makeQuizList() {
   Q=[];
   A=[];
   C=[];
-  var arr = new Array;
+  var arr = [];
   randArr = [];
   for (i = 0; i < nRange; i++) {
     arr[i] = i + 1;
@@ -59,7 +58,7 @@ function makeQuizList() {
     randArr.push(arr[h] + nFrom - 2);
     arr[h] = arr[j - 1];
   } //randArr[] = [1,4,5,3,2]
-  var a = new Array;
+  var a = [];
   for (i = 0; i < Repeat; i++) {
     a = a.concat(randArr);
   } //randArr[] = [1,4,5,3,2,1,4,5,,,,]
@@ -91,7 +90,7 @@ function MaruClick() {
   if (answerData.innerHTML == "×") {
 
     quizData.classList.add("warning");
-    
+    ReArr.push(randArr[0]);
     if (Q.length >= 40) {
       var rArr = [40, 20, 10, 5, 2, 1];
       for (i = 0; i < rArr.length; i++) {
@@ -113,6 +112,7 @@ function BatsuClick() {
   if (answerData.innerHTML == "○") {
 
     quizData.classList.add("warning");
+    ReArr.push(randArr[0]);
 
     if (Q.length >= 40) {
       var rArr = [40, 20, 10, 5, 2, 1];
@@ -163,3 +163,16 @@ function next() {
 function finish() {
   quizData.innerHTML = "<a href='javascript:nextStep()'>Finish</a>";
 }
+
+var ReListOpen = document.getElementById("ReListOpen");
+var ReList = document.getElementById("ReList");
+var ReQuiz = document.getElementById("ReQuiz");
+ReListOpen.onclick = function () {
+  
+  ReList.innerHTML ="";
+  for(i=0; i<ReArr.length; i++) {
+    ReList.innerHTML += '<div style="margin:20px 0px; padding:10px; border:1px solid #fafafa;box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.2);border-radius: 15px;"><div id="ReQuiz">' + quiz[ReArr[i]] + '</div><div id="ReAnswer">'
+    + answer[ReArr[i]] + column[ReArr[i]] + '</div></div>';
+  }
+  ReList.classList.toggle("visi");
+};

@@ -45,39 +45,69 @@ input{
 	background: #fff;
 	border-radius: 6px;
 }
+#rand{
+	margin:20px 40vw;
+	width:20vw;
+	padding:10px 0;
+	text-align: center;
+	background: #fff;
+	border-radius: 6px;
+}
 </style>
 <body>
 	<form name="nums">
 		<input type="number" name="num" value="1">
 </form>
 <div id="go">Go</div>
+<div id="rand">RAND</div>
   <div id="inner"></div>
 <script type="text/javascript" src="assets/js/list.js"></script>
 <script type="text/javascript">
-set();
+	document.nums.num.value = Math.floor( Math.random() * quiz.length ) + 1;
+	
+	countup();
 
-var go = document.getElementById("go");
-go.onclick = function () {
-	countup();
-}
-function set(){
-	countup();
-}
-function countup(){
-	var k, l,n;
-	l = "";
-	var p = eval(document.nums.num.value);
-	for (n=p-1;n< p + 100; n++) {
-		if (answer[n] == "×") {
-			k = "<div class='section red'><div class='quiz'>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
+	document.getElementById("go").onclick = function () {	countup();	};
+	
+	function countup(){
+		var l = "";
+		var k;
+		var No = eval(document.nums.num.value);
+
+		for (var i = No; i < No + 30; i++) {
+			if (answer[i-1] == "×") {
+				k = "<div class='section red '>" + i +"<div class='quiz'>" + quiz[i-1] + "</div><br><div class='column'>" + column[i-1] +"</div></div>";
+			}
+			else if (answer[i-1] == "○"){
+				k = "<div class='section blue'>" + i +"<div class='quiz'>" + quiz[i-1] + "</div><br><div class='column'>" + column[i-1] +"</div></div>";
+			}
+			else{
+				k = "";
+			}
+			l = l + k;
+			
 		}
-		else if (answer[n] == "○"){
-			k = "<div class='section blue'><div class='quiz '>" + quiz[n] + "</div><br><div class='column'>" + column[n] +"</div></div>";
-		}
-		l = l + k;
+		
 		document.getElementById("inner").innerHTML = l;
-	}
- }
-
+ 	}
+	 document.getElementById("rand").onclick = function () {
+		 var l = "";
+		 var k = "";
+		 for (var i = 1; i < 10; i++){
+			 m =  Math.floor( Math.random() * quiz.length ) + 1;
+			if (answer[m] == "×") {
+				k = "<div class='section red '>" + m +"<div class='quiz'>" + quiz[m-1] + "</div><br><div class='column'>" + column[m-1] +"</div></div>";
+			}
+			else if (answer[m] == "○"){
+				k = "<div class='section blue'>" + m +"<div class='quiz'>" + quiz[m-1] + "</div><br><div class='column'>" + column[m-1] +"</div></div>";
+			}
+			else{
+				k = "";
+			}
+			l = l + k;
+		 }
+		 
+		 document.getElementById("inner").innerHTML = l;
+	 };
 </script>
 </body>

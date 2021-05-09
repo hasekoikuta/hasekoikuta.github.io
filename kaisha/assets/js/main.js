@@ -109,7 +109,7 @@ function BatsuClick() {
   nextBtn.style.visibility = "visible";
   b_btn.classList.add('gray');
 
-  if (answerData.innerHTML == "○") {
+  if (answerData.innerHTML == "o") {
 
     quizData.classList.add("warning");
     ReArr.push(randArr[0]);

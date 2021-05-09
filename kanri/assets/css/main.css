@@ -61,7 +61,7 @@ html {
       font-weight:500;
       color:rgba(126, 126, 126, 0.05);
       border:3px solid rgba(126, 126, 126, 0.05);
-      z-index:2;
+      z-index:4;
       background: rgba(0, 0, 0, 0);
       border-radius: 5px;
     }
@@ -128,7 +128,7 @@ html {
         position:fixed;
         bottom:20px;
         right:20px;
-        z-index:2;
+        z-index:4;
       }
       .visi{
         display:none;
@@ -146,7 +146,7 @@ html {
         width:100vw;
         left:0;
         height:100vh;
-        z-index:3;
+        z-index:5;
 
       }
 iframe{
@@ -170,6 +170,15 @@ iframe{
 #b_btn{
   bottom:39vh;
 }
+#ReListOpen{
+  width:50px;
+  height:50px;
+  background-color: #d3d3d3;
+  position:fixed;
+  bottom:80px;
+  right:20px;
+  z-index: 4;
+}
 @media screen and (max-width:400px){
   #quiz{
     font-size:18px;
@@ -192,4 +201,23 @@ iframe{
   .column{
     font-size:17px;
   }
+}
+#ReList{
+  font-size: 17px;
+  line-height: 23px;
+  font-weight: 400;
+  padding:5vw;
+  position: fixed;
+  width:90vw;
+  height:100vh;
+  background-color: #ffffff;
+  z-index:3;
+  top:0;
+  overflow:scroll;
+}
+#ReQuiz{
+  margin:20px 0;
+}
+#ReAnswer{
+  margin:20px 0 60px;
 }

@@ -1,6 +1,6 @@
 var nFrom = eval(document.numbers.nFrom.value);
 var nTo = eval(document.numbers.nTo.value);
-var nRange = nTo - nFrom;
+var nRange = nTo - nFrom + 1;
 var k = 0;
 var Repeat = eval(document.numbers.nRepaet.value);
 
@@ -32,10 +32,17 @@ flesh.onclick = function () {
  nFrom = eval(document.numbers.nFrom.value);
  nTo = eval(document.numbers.nTo.value);
  Repeat = eval(document.numbers.nRepaet.value);
- nRange = nTo - nFrom;
+ nRange = nTo - nFrom + 1;
   makeQuizList();
   map.classList.toggle("visi");
 }
+
+function nextStep(){
+  nFrom += nRange;
+  nTo += nRange;
+  makeQuizList();
+}
+
 
 function makeQuizList() {
   Q=[];
@@ -49,7 +56,7 @@ function makeQuizList() {
   var h = 0;
   for (i = 0,j = nRange; i < nRange; i++, j--) {
     h = Math.floor(Math.random() * j );
-    randArr.push(arr[h] + nFrom);
+    randArr.push(arr[h] + nFrom - 2);
     arr[h] = arr[j - 1];
   } //randArr[] = [1,4,5,3,2]
   var a = new Array;
@@ -154,5 +161,5 @@ function next() {
 }
 
 function finish() {
-  quizData.innerHTML = "<a href='javascript:makeQuizList()'>Finish</a>";
+  quizData.innerHTML = "<a href='javascript:nextStep()'>Finish</a>";
 }

@@ -36,14 +36,14 @@ flesh.onclick = function () {
   map.classList.toggle("visi");
 };
 
+
 function nextStep(){
   nFrom += nRange ;
-  nTo += nRange - 1;
+  nTo = nFrom + nRange  -1;
    document.numbers.nFrom.value = nFrom ;
- document.numbers.nTo.value = nTo;
+ document.numbers.nTo.value = nTo ;
   makeQuizList();
 }
-
 
 
 function makeQuizList() {

@@ -39,6 +39,8 @@ flesh.onclick = function () {
 function nextStep(){
   nFrom += nRange;
   nTo += nRange;
+   document.numbers.nFrom.value = nFrom ;
+ document.numbers.nTo.value = nTo;
   makeQuizList();
 }
 

@@ -37,7 +37,7 @@ flesh.onclick = function () {
 };
 
 function nextStep(){
-  nFrom += nRange - 1;
+  nFrom += nRange ;
   nTo += nRange - 1;
    document.numbers.nFrom.value = nFrom ;
  document.numbers.nTo.value = nTo;

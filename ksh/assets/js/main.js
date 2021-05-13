@@ -1,7 +1,7 @@
 var n = quiz.length;
 var m = n;
 var k = 0;
-var Repeat = 0;
+var Repeat = 1;
 
 var Q = new Array;
 var A = new Array;
@@ -25,6 +25,7 @@ function makeQuizList() {
   A=[];
   C=[];
   k=0;
+  randArr = [];
   var arr = new Array;
   for (i = 0; i < n; i++) {
     arr[i] = i + 1;

@@ -1,7 +1,7 @@
 var n = quiz.length;
 var m = n;
 var k = 0;
-var Repeat = 1;
+var Repeat = 0;
 
 var Q = new Array;
 var A = new Array;

@@ -27,13 +27,14 @@ function makeQuizList() {
   k=0;
   var arr = new Array;
   for (i = 0; i < n; i++) {
-    arr[i] = i;
+    arr[i] = i + 1;
   } //arr[]=[0,1,2,,,n-1]
   var h = 0;
-  for (i = 0; i < m; i++) {
-    h = Math.floor(Math.random() * n - i);
-    randArr[i] = arr[h];
-    arr.splice(h, 1);
+  var j = n;
+  for (i = 0; i < n; i++, j--) {
+    h = Math.floor(Math.random() * j);
+    randArr.push(arr[h] - 1);
+    arr[h] = arr[j - 1];
   } //randArr[] = [1,4,5,3,2]
   var a = new Array;
   for (i = 0; i < Repeat; i++) {

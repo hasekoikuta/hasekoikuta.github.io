@@ -2,7 +2,13 @@
 <head>
 <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ALC Kiku-Juku List 3000</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="会社法">
+  <link rel="apple-touch-icon" href="assets/app-icon.jpg" sizes="72x72">
+  <meta name="description" content="Content">
+
+<title>会社法</title>
 </head>
 <style>
 body{
@@ -78,7 +84,7 @@ input{
 			if (answer[i-1] == "×") {
 				k = "<div class='section red '>" + i +"<div class='quiz'>" + quiz[i-1] + "</div><br><div class='column'>" + column[i-1] +"</div></div>";
 			}
-			else if (answer[i-1] == "o"){
+			else if (answer[i-1] == "○"){
 				k = "<div class='section blue'>" + i +"<div class='quiz'>" + quiz[i-1] + "</div><br><div class='column'>" + column[i-1] +"</div></div>";
 			}
 			else{

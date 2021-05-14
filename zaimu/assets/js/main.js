@@ -1,3 +1,8 @@
+var f = Math.floor( Math.random() * (quiz.length - 10) ) +10;
+	document.numbers.nFrom.value = f;
+	document.numbers.nTo.value = f + 9;
+
+
 var nFrom = eval(document.numbers.nFrom.value);
 var nTo = eval(document.numbers.nTo.value);
 var nRange = nTo - nFrom + 1;

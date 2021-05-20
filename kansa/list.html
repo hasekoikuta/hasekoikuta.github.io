@@ -4,29 +4,37 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="会社法">
+  <meta name="apple-mobile-web-app-title" content="監査論リスト">
   <link rel="apple-touch-icon" href="assets/app-icon.jpg" sizes="72x72">
   <meta name="description" content="Content">
 
-<title>会社法</title>
+<title>監査論リスト</title>
 </head>
 <style>
+*:focus{
+	outline:none;
+}
 body{
     font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
 	font-size: 19px;
 	font-weight: 400;
 	line-height: 23px;
 	letter-spacing: 0.5px;
-	background: rgb(250, 250, 250);
+	background: #fafafa;
 	padding:0;
 	margin: 0;
 }
 .section{
+	font-size:18px;
+	padding:0px 20px 16px;
+	line-height:25px;
 	background: #fff;
-	margin:0px 8px 100px;
-	padding:8%;
-	box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.2);
-	border-radius: 15px;
+	margin-bottom:10px;
+
+}
+details{
+	padding:8px 16px;
+	border-radius: 12px;
 }
 .red{
 	color:rgb(156, 74, 74);
@@ -80,16 +88,13 @@ input{
 		var k;
 		var No = eval(document.nums.num.value);
 
-		for (var i = No; i < No + 30; i++) {
-			if (answer[i-1] == "×") {
-				k = "<div class='section red '>" + i +"<div class='quiz'>" + quiz[i-1] + "</div><br><div class='column'>" + column[i-1] +"</div></div>";
-			}
-			else if (answer[i-1] == "○"){
-				k = "<div class='section blue'>" + i +"<div class='quiz'>" + quiz[i-1] + "</div><br><div class='column'>" + column[i-1] +"</div></div>";
-			}
-			else{
-				k = "";
-			}
+		for (var i = No; i < No + 50; i++) {
+
+			 k = "<details class='section'><summary><p>" + i + "<br>"
+			 + quiz[i-1] + "</p></summary><p>"
+			 + answer[i-1] + "</p><p>" 
+			 + column[i-1] + "</p></details>"; 
+			 
 			l = l + k;
 			
 		}
@@ -99,17 +104,14 @@ input{
 	 document.getElementById("rand").onclick = function () {
 		 var l = "";
 		 var k = "";
-		 for (var i = 1; i < 10; i++){
+		 for (var i = 1; i < 50; i++){
 			 m =  Math.floor( Math.random() * quiz.length ) + 1;
-			if (answer[m] == "×") {
-				k = "<div class='section red '>" + m +"<div class='quiz'>" + quiz[m-1] + "</div><br><div class='column'>" + column[m-1] +"</div></div>";
-			}
-			else if (answer[m] == "○"){
-				k = "<div class='section blue'>" + m +"<div class='quiz'>" + quiz[m-1] + "</div><br><div class='column'>" + column[m-1] +"</div></div>";
-			}
-			else{
-				k = "";
-			}
+			 
+			 k = "<details class='section'><summary><p>" + m + "</p><p>"
+			 + quiz[m-1] + "</p></summary><p>"
+			 + answer[m-1] + "</p><p>" 
+			 + column[m-1] + "</p></details>"; 
+			 
 			l = l + k;
 		 }
 		 

@@ -31,6 +31,8 @@ function quiz() {
 	document.cookie = 'COUNT=' + num + ';expire=' + expire.toUTCString();
 		document.getElementById("number").innerHTML = num;
 
+	document.cookie = 'WW=' + w + ';expire=' + expire.toUTCString();
+
 
 
 	h++;

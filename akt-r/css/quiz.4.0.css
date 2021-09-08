@@ -1,0 +1,98 @@
+ 
+html, body{
+  overflow-x:hidden;
+}
+body {
+    font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+  margin:0;
+}
+.close{
+  display:none !important;
+}
+.header{
+  display:block;
+  width:96vw !important;
+  height:30px;
+}
+.container{
+  margin:2vh 2vw;
+}
+#text_k{
+  text-align:center;
+  font-weight:bolder;
+  font-size:6vh;
+  margin:10vh 0;
+}
+#text_g{
+  font-size:4vh;
+  text-align:center;
+}
+.button {
+	position: relative;
+	display: block;
+	padding: 0.8em 0;
+        width:48vw;
+	text-align: center;
+	text-decoration: none;
+	color: #FFF;
+	background: #26C6DA;
+	border-bottom: 2px solid #00838F;
+	border-radius: 4px;
+	box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+}
+.button:active {
+	border-bottom: 2px solid #26C6DA;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+.pan{
+ overflow:hidden;
+ position:absolute;
+}
+.show{
+  bottom:10px;
+}
+.countup{
+  bottom:81px;
+}
+.noidea{
+  bottom:81px;
+  right:2vw;
+}
+.show a{
+  width:96vw;
+  height:40px;
+}
+
+
+
+
+
+
+#sec2_question{
+  width:100%;
+  padding:30px 0;
+  font-size:26px;
+  text-align:center;
+  margin:70px 0 40px 0;
+  background:#fafafa;
+  font-weight:700;
+}
+#sec2_answer{
+    text-align:center;
+}
+#sec2_answer a {
+    display: block;
+    background-color: #ffc03b;
+    color: #FFF;
+    font-size: 1em;
+    line-height: 1;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    padding: 29px 1em;
+    border-radius: 3px;
+    margin: 8px 0;
+    cursor: pointer;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+    transition: 0.1s ease-out;
+    font-weight: 420;
+}

@@ -1,0 +1,132 @@
+html, body{
+  overflow-x:hidden;
+}
+body {
+    font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+}
+#text_s a{
+  display: block;
+  background-color: #ffc03b;/*背景色*/
+  color: #FFF;/*文字色*/
+  font-size: 1em;/*文字サイズ*/
+  line-height: 1;
+  text-decoration: none;
+  letter-spacing: 0.05em;/*字間*/
+  padding: 17px 1em;/*ボタン内の余白*/
+  border-radius: 3px;/*角の丸み*/
+  margin:10px 0;
+    cursor: pointer;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);/*影*/
+  transition: 0.1s ease-out;/*変化を緩やかに*/
+  font-weight:420;
+}
+
+a:active{
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14), 0 1px 7px 0 rgba(0,0,0,0.12), 0 3px 1px -1px rgba(0,0,0,0.2);/*浮き上がるように*/
+}
+#text_q{
+  width:100%;
+  height:40px;
+  font-size:20px;
+  text-align:center;
+  padding-top:15px;
+  background:#fafafa;
+  font-weight:700;
+  
+}
+#text_s{
+  text-align:center;
+}
+div{
+  font-weight:700;
+}
+.black{
+display:block;
+float:left;
+height:21px;
+background:#111;
+color:white;
+font-weight:700;
+padding:1px 2vw;
+margin:0 2vw 3vw 7vw;
+font-size:14px;
+border-radius:5px;;
+text-align:right;
+}
+.header{
+  overflow:hidden;
+}
+
+.black{
+  width:20vw;
+  height:21px;
+  float:left;
+}
+.blue{
+  display:block;
+  float:left;
+  height:21px;
+  background:#111;
+}
+input{
+  -webkit-tap-highlight-color: transparent;
+  width:50%;
+  margin:0 25%;
+  height:50px;
+}
+#level:before{
+  content:attr(data-content);
+text-shadow:0 0 0;
+}
+span::before{
+  display:block;
+  float:left;
+  position:absolute;
+  margin-left:-9vw;
+  margin-top:-3px;
+  padding-right:15px;
+  padding-left:0;
+  font-size:18px;
+  width:25px;
+  height:28px;
+border-radius:12px;
+  background:#ffc03b;
+}
+#text_a{
+height:35vh;
+overflow-y:scroll;
+-webkit-overflow-scrolling: touch;
+padding: 10px 12px;
+border: 1px solid #ddd;
+}
+h2{
+  padding:0;
+  margin:10px 0;
+  font-size:17px;
+}
+.a-anser{
+  padding:5px 12px;
+  width:90%;
+  border-bottom:1px solid #ccc;
+  font-size:18px;
+}
+a{
+  -webkit-tap-highlight-color: transparent;
+
+  color:#000;
+  text-decoration:none;
+}
+.anser{
+  padding-left:10px;
+  font-size:12px;
+}
+.bigger{
+  position:absolute;
+  top:0;
+  margin-top:7vh;
+  height:80vh !important; 
+  background:#FFF;
+  width:96vw;
+  padding:0 !important;
+  left:2vw;
+}

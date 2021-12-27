@@ -34,8 +34,6 @@ function quiz() {
 
 
 	h++;
-	document.getElementById("level").innerHTML = h + "/" + f;
-        document.getElementById('level').setAttribute('data-content',g);
 
 	if (h == f){
 		g++;

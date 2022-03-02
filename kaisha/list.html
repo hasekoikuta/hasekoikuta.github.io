@@ -4,11 +4,11 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="会社リスト">
+  <meta name="apple-mobile-web-app-title" content="管理リスト">
   <link rel="apple-touch-icon" href="assets/app-icon.jpg" sizes="72x72">
   <meta name="description" content="Content">
 
-<title>会社リスト</title>
+<title>管理リスト</title>
 </head>
 <style>
 *:focus{
@@ -88,7 +88,15 @@ input{
 		var k;
 		var No = eval(document.nums.num.value);
 
-		for (var i = No; i < No + 50; i++) {
+
+			 k = "<details class='section'><summary><p style='min-height:250px;'>" + No + "<br>"
+			 + quiz[No-1] + "</p></summary><p>"
+			 + answer[No-1] + "</p><p>" 
+			 + column[No-1] + "</p></details>"; 
+			 
+			l = l + k;
+			
+		for (var  i = No + 1; i < No + 51; i++) {
 
 			 k = "<details class='section'><summary><p>" + i + "<br>"
 			 + quiz[i-1] + "</p></summary><p>"

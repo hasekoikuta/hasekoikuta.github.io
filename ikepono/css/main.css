@@ -76,6 +76,7 @@ img {
   background-size: cover;
   position: relative;
   z-index: 0;
+  overflow:visible;
 }
 a{
   text-decoration: none;
@@ -116,10 +117,11 @@ a{
   z-index:10;
   top: 0;
   left: 0;
-  padding: 32px;
-  padding-bottom: 32px;
+  padding: 16px;
   border-radius: 0 0 24px 0;
-  width:25vw;
+  width:20vw;
+  height:100vh;
+  max-height:700px;
   max-width: 280px;
   background-color: rgba(255,255,255,0.8);
 }
@@ -280,5 +282,44 @@ footer{
   background-color: #2285b1;
   text-align: center;
   padding:32px;
+
+}
+@media screen and (max-width: 700px){
+  .top-left{
+    display: none;
+  }
+  p{
+    font-size:16px;
+  }
+  h2{
+    font-size: 24px;
+  }
+  section{
+    padding:16px !important;
+  }
+  .msg-img-container{
+    display: none;
+  }
+  section:nth-child(n+5):nth-child(-n+8){
+    padding:32px 16px 150px 16px!important;
+  }.button a {
+    margin: 32px auto;
+  }
+  .top-right{
+    width:100%;
+    margin:0;
+  }
+  .top-img img {
+      width: 100%;
+      border-radius: 0;
+    }.guest-container{
+      width:100vw;
+    }
+    .flex-container{
+      padding-right:0;
+    }
+    h3{
+      font-size:18px;
+    }
 
 }

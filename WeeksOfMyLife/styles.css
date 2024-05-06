@@ -1,7 +1,9 @@
+
 .container {
     display: flex;
     flex-wrap: wrap;
-    max-width: calc(100vw - 20px); /* 画面幅から余白を引いた最大幅を設定 */
+    width: calc(100vw - 20px); /* 画面幅から余白を引いた最大幅を設定 */
+    height: calc(100vh - 20px); /* 画面幅から余白を引いた最大幅を設定 */
     justify-content: center;
 }
 

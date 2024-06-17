@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三択計算問題ゲーム</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>計算問題ゲーム</h1>
+    <div id="settings">
+        <label>操作:
+            <select id="operation">
+                <option value="add">加算</option>
+                <option value="subtract">減算</option>
+                <option value="multiply">乗算</option>
+                <option value="divide">除算</option>
+            </select>
+        </label>
+        <label>数値1の桁数:
+            <select id="digits1">
+                <option value="1">1桁</option>
+                <option value="2">2桁</option>
+                <option value="3">3桁</option>
+                <option value="4">4桁</option>
+                <option value="5">5桁</option>
+                <option value="6">6桁</option>
+                <option value="7">7桁</option>
+                <option value="8">8桁</option>
+                <!-- 他の桁数も同様に追加 -->
+            </select>
+        </label>
+        <label>数値2の桁数:
+            <select id="digits2">
+              <option value="1">1桁</option>
+              <option value="2">2桁</option>
+              <option value="3">3桁</option>
+              <option value="4">4桁</option>
+              <option value="5">5桁</option>
+              <option value="6">6桁</option>
+              <option value="7">7桁</option>
+              <option value="8">8桁</option>
+                <!-- 他の桁数も同様に追加 -->
+            </select>
+        </label>
+        <button id="start">開始</button>
+    </div>
+    <div id="questionContainer" style="display: none;">
+        <div id="question"></div>
+        <button id="reveal">答えを見る</button>
+    </div>
+    <div id="choices" style="display: none;">
+        <button class="choice"></button>
+        <button class="choice"></button>
+        <button class="choice"></button>
+    </div>
+    <div id="feedback" style="display: none;"></div> <!-- フィードバック表示用 -->
+    <script src="script.js"></script>
+</body>
+</html>

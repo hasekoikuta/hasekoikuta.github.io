@@ -1,0 +1,21 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #f2f2f2;
+}
+
+#container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.text-item {
+    position: absolute;
+    font-size: 1rem;
+    color: rgb(66, 66, 66);
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}

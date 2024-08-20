@@ -89,7 +89,10 @@ const texts = [
 "つい人に熱く語ってしまうテーマは何ですか？",
 
 
-];// ランダムな位置を取得
+];
+
+
+// ランダムな位置を取得
 function getRandomPosition(textElement) {
     const maxX = window.innerWidth - textElement.clientWidth; // 横幅でオーバーフローしない範囲
     const maxY = window.innerHeight - textElement.clientHeight; // 縦幅でオーバーフローしない範囲
@@ -130,6 +133,13 @@ function showRandomText() {
     }, 3000); // 表示している時間
 }
 
-// クリックまたはタッチイベントをリスンして文字列を遷移
-document.addEventListener('click', showRandomText);
-document.addEventListener('touchstart', showRandomText);
+// イベントをリスンして文字列を遷移
+document.addEventListener('click', (event) => {
+    event.preventDefault();
+    showRandomText();
+}, { passive: false });
+
+document.addEventListener('touchstart', (event) => {
+    event.preventDefault();
+    showRandomText();
+}, { passive: false });

@@ -62,6 +62,7 @@
     let nextAnswer = 0;
     let recognition = null;
     let correctCount = 0;
+    let isProcessing = false; // ★ 追加: 処理中かどうかを判断するフラグ
 
     function generateNumbers() {
       if (nextNumbers.length === 0) {
@@ -86,9 +87,12 @@
     }
 
     function startRecognition() {
-        if (recognition && recognition.abort) {
-            recognition.abort();
-        }
+      if (isProcessing) return; // ★ 追加: 処理中の場合は認識を開始しない
+      isProcessing = true;
+
+      if (recognition && recognition.abort) {
+          recognition.abort();
+      }
       recognition = new webkitSpeechRecognition() || new SpeechRecognition();
       recognition.lang = 'ja-JP';
       recognition.continuous = false;
@@ -114,12 +118,7 @@
         document.getElementById("status").textContent = "音声認識は停止しました。";
         document.getElementById("recognizedText").textContent = "";
         document.getElementById("numbers").classList.add("inactive");
-
-        // 新しい問題の生成と次の認識の開始をここで行う
-        if (document.getElementById("status").textContent !== "正解！") {
-            generateNumbers();
-            setTimeout(startRecognition, 0);
-        }
+        isProcessing = false; // ★ 追加: 処理が終了したらフラグを false に
       };
 
       recognition.onstart = function() {
@@ -131,17 +130,19 @@
     }
 
     function checkAnswer(userAnswer) {
-        if (userAnswer === answer) {
-            document.getElementById("status").textContent = "正解！";
-            correctCount++;
-            document.getElementById("score").textContent = "正解数: " + correctCount;
+      if (userAnswer === answer) {
+        document.getElementById("status").textContent = "正解！";
+        correctCount++;
+        document.getElementById("score").textContent = "正解数: " + correctCount;
 
-            // 正解の場合は即座に新しい問題を表示し、認識を開始
-            generateNumbers();
-            setTimeout(startRecognition, 0);
-        } else {
-            document.getElementById("status").textContent = "不正解、もう一度！";
-        }
+        // 正解の場合は即座に新しい問題を表示し、認識を開始
+        generateNumbers();
+        setTimeout(startRecognition, 0);
+      } else {
+        document.getElementById("status").textContent = "不正解、もう一度！";
+        // 不正解の場合は、認識を再開
+        setTimeout(startRecognition, 0);
+      }
     }
 
     document.getElementById("startBtn").addEventListener("click", function() {

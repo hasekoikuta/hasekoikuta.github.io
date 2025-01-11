@@ -13,7 +13,12 @@
     }
     #numbers {
       font-size: 24px;
+      margin-bottom: 10px;
+    }
+    #nextNumbers {
+      font-size: 18px;
       margin-bottom: 20px;
+      color: gray;
     }
     #result {
       font-size: 20px;
@@ -28,30 +33,54 @@
       font-size: 16px;
       color: blue;
     }
+    #score {
+      margin-top: 20px;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
   <div id="container">
     <h1>暗算チャレンジ</h1>
     <div id="numbers"></div>
+    <div id="nextNumbers"></div>
     <button id="startBtn">開始</button>
     <div id="result"></div>
     <div id="status"></div>
     <div id="recognizedText"></div>
+    <div id="score"></div>
   </div>
 
   <script>
     let numbers = [];
+    let nextNumbers = [];
     let answer = 0;
+    let nextAnswer = 0;
     let recognition = null;
+    let correctCount = 0;
 
     function generateNumbers() {
-      numbers = [];
-      for (let i = 0; i < 4; i++) {
-        numbers.push(Math.floor(Math.random() * 9) + 1);
+      if (nextNumbers.length === 0) {
+          // 最初の問題生成
+          for (let i = 0; i < 4; i++) {
+              numbers.push(Math.floor(Math.random() * 9) + 1);
+          }
+          answer = numbers.reduce((sum, num) => sum + num, 0);
+      } else {
+          // 次の問題があればそれを使う
+          numbers = nextNumbers;
+          answer = nextAnswer;
       }
-      answer = numbers.reduce((sum, num) => sum + num, 0);
+
+      // 次の問題を生成
+      nextNumbers = [];
+      for (let i = 0; i < 4; i++) {
+          nextNumbers.push(Math.floor(Math.random() * 9) + 1);
+      }
+      nextAnswer = nextNumbers.reduce((sum, num) => sum + num, 0);
+
       document.getElementById("numbers").textContent = numbers.join(" + ");
+      document.getElementById("nextNumbers").textContent = "次の問題: " + nextNumbers.join(" + ");
     }
 
     function startRecognition() {
@@ -64,19 +93,17 @@
         const userSaid = event.results[0][0].transcript;
         document.getElementById("result").textContent = "あなたの回答: " + userSaid;
         checkAnswer(parseInt(userSaid));
-
-        // 認識されたテキストを表示
         document.getElementById("recognizedText").textContent = "認識されたテキスト: " + userSaid;
       };
 
       recognition.onerror = function(event) {
         document.getElementById("status").textContent = "エラー: " + event.error;
-        document.getElementById("recognizedText").textContent = ""; // エラー時は認識テキストをクリア
+        document.getElementById("recognizedText").textContent = "";
       };
 
       recognition.onend = function() {
         document.getElementById("status").textContent = "音声認識は停止しました。";
-        document.getElementById("recognizedText").textContent = ""; // 停止時も認識テキストをクリア
+        document.getElementById("recognizedText").textContent = "";
       };
 
       recognition.start();
@@ -86,6 +113,8 @@
     function checkAnswer(userAnswer) {
       if (userAnswer === answer) {
         document.getElementById("status").textContent = "正解！";
+        correctCount++;
+        document.getElementById("score").textContent = "正解数: " + correctCount;
         generateNumbers();
         setTimeout(startRecognition, 1000);
       } else {

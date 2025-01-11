@@ -51,17 +51,24 @@
     function startRecognition() {
       recognition = new webkitSpeechRecognition() || new SpeechRecognition();
       recognition.lang = 'ja-JP';
+      recognition.continuous = false; // ★ここが修正点：連続モードを false に設定
+      recognition.interimResults = false; // ★ここが修正点：中間結果を false に設定
+
       recognition.onresult = function(event) {
         const userSaid = event.results[0][0].transcript;
         document.getElementById("result").textContent = "あなたの回答: " + userSaid;
         checkAnswer(parseInt(userSaid));
       };
+
       recognition.onerror = function(event) {
         document.getElementById("status").textContent = "エラー: " + event.error;
       };
+
       recognition.onend = function() {
         document.getElementById("status").textContent = "音声認識は停止しました。";
+        // ここでは自動的に再開しないように変更
       };
+
       recognition.start();
       document.getElementById("status").textContent = "音声認識中...";
     }
@@ -70,18 +77,13 @@
       if (userAnswer === answer) {
         document.getElementById("status").textContent = "正解！";
         generateNumbers(); // 正解なら次の問題へ
-        resetRecognition(); // 音声認識をリセット
+        // 正解した後に再度音声認識を開始
+        setTimeout(startRecognition, 1000); // 1秒後に音声認識を再開
       } else {
         document.getElementById("status").textContent = "不正解、もう一度！";
-        resetRecognition(); // 音声認識をリセット
+        // 不正解の場合も再度音声認識を開始
+        setTimeout(startRecognition, 1000); // 1秒後に音声認識を再開
       }
-    }
-
-    function resetRecognition() {
-      if (recognition) {
-        recognition.stop();
-      }
-      startRecognition(); // 再度音声認識を開始
     }
 
     document.getElementById("startBtn").addEventListener("click", function() {

@@ -178,10 +178,11 @@
     // 四則演算の問題を生成する関数(レベル2用)
     function generateNumbersLevel2() {
       const operators = ['+', '-', '*', '/'];
-      let operator;
+      let operator, nextOperator;
 
       if (nextNumbers.length > 0) {
           numbers = nextNumbers;
+          operator = nextOperator;
           answer = nextAnswer;
       } else {
           numbers = [];
@@ -200,10 +201,18 @@
                 numbers[1] = numbers[0] * numbers[1]; // 2番目の数字を掛け算の結果で置き換える。
             }
             answer = eval(numbers[0] + operator + numbers[1]);
+            // 3つの数字の計算
             if(operator !== '/'){
-              answer = eval(answer + operators[Math.floor(Math.random() * 2)] + numbers[2]);
+              do{
+                nextOperator = operators[Math.floor(Math.random() * operators.length)];
+                if (nextOperator === '/') {
+                  // 割り算の場合は、割り切れる数にする
+                  numbers[2] = answer * numbers[2];
+                }
+                answer = eval(answer + nextOperator + numbers[2]);
+              }while(!Number.isInteger(answer) || answer <= 0)
             }
-          } while (!Number.isInteger(answer) || answer <= 0);
+          } while (!Number.isInteger(answer) || answer <= 0); // 答えが0以下または整数でない場合はやり直し
       }
 
       // 次の問題を生成
@@ -220,13 +229,20 @@
               nextNumbers[1] = nextNumbers[0] * nextNumbers[1];
           }
           nextAnswer = eval(nextNumbers[0] + nextOperator + nextNumbers[1]);
+          // 3つの数字の計算
           if(nextOperator !== '/'){
-            nextAnswer = eval(nextAnswer + operators[Math.floor(Math.random() * 2)] + nextNumbers[2]);
+            do{
+              nextNextOperator = operators[Math.floor(Math.random() * operators.length)];
+              if (nextNextOperator === '/') {
+                nextNumbers[2] = nextAnswer * nextNumbers[2];
+              }
+              nextAnswer = eval(nextAnswer + nextNextOperator + nextNumbers[2]);
+            }while(!Number.isInteger(nextAnswer) || nextAnswer <= 0)
           }
-      } while (!Number.isInteger(nextAnswer) || nextAnswer <=0);
+      } while (!Number.isInteger(nextAnswer) || nextAnswer <= 0); // 答えが0以下または整数でない場合はやり直し
 
-      document.getElementById("numbers").textContent = `${numbers[0]} ${operator} ${numbers[1]} ${nextOperator !== '/' ? operators[Math.floor(Math.random() * 2)] : ''} ${nextOperator !== '/' ? numbers[2] : ''}`;
-      document.getElementById("nextNumbers").textContent = "次の問題: " + `${nextNumbers[0]} ${nextOperator} ${nextNumbers[1]} ${nextOperator !== '/' ? operators[Math.floor(Math.random() * 2)] : ''} ${nextOperator !== '/' ? nextNumbers[2] : ''}`;
+      document.getElementById("numbers").textContent = `${numbers[0]} ${operator} ${numbers[1]} ${operator !== '/' ? nextOperator : ''} ${operator !== '/' ? numbers[2] : ''}`;
+      document.getElementById("nextNumbers").textContent = "次の問題: " + `${nextNumbers[0]} ${nextOperator} ${nextNumbers[1]} ${nextOperator !== '/' ? nextNextOperator : ''} ${nextOperator !== '/' ? nextNumbers[2] : ''}`;
 
       if(!isFirstQuestion){
         document.getElementById("numbers").classList.add("inactive");
@@ -278,19 +294,17 @@
         document.getElementById("status").textContent = "正解！";
         correctCount++;
         document.getElementById("score").textContent = "正解数: " + correctCount;
-
-        // レベルに応じて問題生成関数を切り替え
-        if (currentLevel === 1) {
-          generateNumbersLevel1();
-        } else if (currentLevel === 2) {
-          generateNumbersLevel2();
-        }
-
-        setTimeout(resetRecognition, 500);
       } else {
-        document.getElementById("status").textContent = "不正解、もう一度！";
-        setTimeout(resetRecognition, 500);
+        document.getElementById("status").textContent = `不正解, 正解は${answer}！`;
       }
+
+      // レベルに応じて問題生成関数を切り替え
+      if (currentLevel === 1) {
+        generateNumbersLevel1();
+      } else if (currentLevel === 2) {
+        generateNumbersLevel2();
+      }
+      setTimeout(resetRecognition, 500);
     }
 
     // 音声認識をリセットする関数

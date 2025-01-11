@@ -22,7 +22,7 @@
     #numbers {
       font-size: 36px;
       margin-bottom: 20px;
-      transition: color 0.3s; /* 色の変化を滑らかに */
+      transition: color 0.3s;
       min-height: 50px; /*ちらつき防止*/
     }
     #numbers.inactive {
@@ -68,11 +68,30 @@
       margin-top: 20px;
       font-size: 18px;
     }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      border-radius: 5px 5px 0 0;
+      background-color: #eee;
+    }
+    .tab.active {
+      background-color: #ddd;
+    }
   </style>
 </head>
 <body>
   <div id="container">
     <h1>暗算チャレンジ</h1>
+    <div class="tabs">
+      <div class="tab active" data-level="1">レベル 1</div>
+      <div class="tab" data-level="2">レベル 2</div>
+    </div>
     <div id="numbers"></div>
     <div id="nextNumbers"></div>
     <button id="startBtn">開始</button>
@@ -89,85 +108,167 @@
     let nextAnswer = 0;
     let recognition = null;
     let correctCount = 0;
-    let isFirstQuestion = true; // 初回問題かどうかのフラグ
+    let isFirstQuestion = true;
+    let currentLevel = 1; // 現在のレベル
 
-    // 1桁の数字4つを生成し、合計を計算する関数
-    function generateNumbers() {
-      // 次の問題が用意されていればそれを使う
+    // タブのクリックイベント
+    const tabs = document.querySelectorAll(".tab");
+    tabs.forEach(tab => {
+      tab.addEventListener("click", function() {
+        // アクティブなタブを切り替え
+        tabs.forEach(t => t.classList.remove("active"));
+        this.classList.add("active");
+
+        // レベルを更新
+        currentLevel = parseInt(this.dataset.level);
+
+        // 問題をリセット
+        resetGame();
+      });
+    });
+
+    // ゲームをリセットする関数
+    function resetGame() {
+      numbers = [];
+      nextNumbers = [];
+      answer = 0;
+      nextAnswer = 0;
+      isFirstQuestion = true;
+      document.getElementById("numbers").textContent = "";
+      document.getElementById("nextNumbers").textContent = "";
+      document.getElementById("result").textContent = "";
+      document.getElementById("status").textContent = "";
+      document.getElementById("recognizedText").textContent = "";
+      document.getElementById("score").textContent = "正解数: 0";
+      if (recognition) {
+        recognition.stop();
+      }
+      document.getElementById("startBtn").disabled = false;
+    }
+
+    // 1桁の数字4つを生成し、合計を計算する関数(レベル1用)
+    function generateNumbersLevel1() {
       if (nextNumbers.length > 0) {
         numbers = nextNumbers;
         answer = nextAnswer;
       } else {
-        // 1桁の数字を4つ生成
         numbers = [];
         for (let i = 0; i < 4; i++) {
           numbers.push(Math.floor(Math.random() * 9) + 1);
         }
-        // 生成した数字の合計を計算
         answer = numbers.reduce((sum, num) => sum + num, 0);
       }
 
-      // 次の問題を生成
       nextNumbers = [];
       for (let i = 0; i < 4; i++) {
         nextNumbers.push(Math.floor(Math.random() * 9) + 1);
       }
-      // 次の問題の合計を計算
       nextAnswer = nextNumbers.reduce((sum, num) => sum + num, 0);
 
-      // HTMLに現在の問題と次の問題を反映
       document.getElementById("numbers").textContent = numbers.join(" + ");
       document.getElementById("nextNumbers").textContent = "次の問題: " + nextNumbers.join(" + ");
 
-      // 初回問題の場合は、数字をグレーにしない
       if(!isFirstQuestion){
         document.getElementById("numbers").classList.add("inactive");
       } else {
-        isFirstQuestion = false; // 次回からはグレーにする
+        isFirstQuestion = false;
+      }
+    }
+
+    // 四則演算の問題を生成する関数(レベル2用)
+    function generateNumbersLevel2() {
+      const operators = ['+', '-', '*', '/'];
+      let operator;
+
+      if (nextNumbers.length > 0) {
+          numbers = nextNumbers;
+          answer = nextAnswer;
+      } else {
+          numbers = [];
+          for (let i = 0; i < 3; i++) {
+              numbers.push(Math.floor(Math.random() * 9) + 1);
+          }
+          // 計算が自然数になるように調整
+          do {
+            operator = operators[Math.floor(Math.random() * operators.length)];
+            if (operator === '/') {
+                // 割り算の場合は、割り切れる数にする
+                if(numbers[0] * numbers[1] < numbers[2]){
+                  // 最初の二つの数の積が、最後の数より小さいなら入れ替える
+                  [numbers[0], numbers[2]] = [numbers[2], numbers[0]];
+                }
+                numbers[1] = numbers[0] * numbers[1]; // 2番目の数字を掛け算の結果で置き換える。
+            }
+            answer = eval(numbers[0] + operator + numbers[1]);
+            if(operator !== '/'){
+              answer = eval(answer + operators[Math.floor(Math.random() * 2)] + numbers[2]);
+            }
+          } while (!Number.isInteger(answer) || answer <= 0);
+      }
+
+      // 次の問題を生成
+      nextNumbers = [];
+      for (let i = 0; i < 3; i++) {
+          nextNumbers.push(Math.floor(Math.random() * 9) + 1);
+      }
+      do {
+          nextOperator = operators[Math.floor(Math.random() * operators.length)];
+          if (nextOperator === '/') {
+              if(nextNumbers[0] * nextNumbers[1] < nextNumbers[2]){
+                [nextNumbers[0], nextNumbers[2]] = [nextNumbers[2], nextNumbers[0]];
+              }
+              nextNumbers[1] = nextNumbers[0] * nextNumbers[1];
+          }
+          nextAnswer = eval(nextNumbers[0] + nextOperator + nextNumbers[1]);
+          if(nextOperator !== '/'){
+            nextAnswer = eval(nextAnswer + operators[Math.floor(Math.random() * 2)] + nextNumbers[2]);
+          }
+      } while (!Number.isInteger(nextAnswer) || nextAnswer <=0);
+
+      document.getElementById("numbers").textContent = `${numbers[0]} ${operator} ${numbers[1]} ${nextOperator !== '/' ? operators[Math.floor(Math.random() * 2)] : ''} ${nextOperator !== '/' ? numbers[2] : ''}`;
+      document.getElementById("nextNumbers").textContent = "次の問題: " + `${nextNumbers[0]} ${nextOperator} ${nextNumbers[1]} ${nextOperator !== '/' ? operators[Math.floor(Math.random() * 2)] : ''} ${nextOperator !== '/' ? nextNumbers[2] : ''}`;
+
+      if(!isFirstQuestion){
+        document.getElementById("numbers").classList.add("inactive");
+      } else {
+        isFirstQuestion = false;
       }
     }
 
     // 音声認識を開始する関数
     function startRecognition() {
-      // 新しい音声認識オブジェクトを作成
       recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
       recognition.lang = 'ja-JP';
-      recognition.continuous = false; // 連続的な認識は無効
-      recognition.interimResults = false; // 中間結果は無効
+      recognition.continuous = false;
+      recognition.interimResults = false;
 
-      // 音声認識が結果を返したときの処理
       recognition.onresult = function(event) {
         const userSaid = event.results[0][0].transcript;
         document.getElementById("result").textContent = "あなたの回答: " + userSaid;
         document.getElementById("recognizedText").textContent = "認識されたテキスト: " + userSaid;
-        checkAnswer(parseInt(userSaid)); // ユーザーの回答をチェック
+        checkAnswer(parseInt(userSaid));
       };
 
-      // 音声認識でエラーが発生したときの処理
       recognition.onerror = function(event) {
         document.getElementById("status").textContent = "エラー: " + event.error;
         document.getElementById("recognizedText").textContent = "";
-        // エラー後も認識を再開
         if (event.error !== 'no-speech') {
           setTimeout(resetRecognition, 500);
         }
       };
 
-      // 音声認識が終了したときの処理
       recognition.onend = function() {
         document.getElementById("status").textContent = "待機中";
         document.getElementById("recognizedText").textContent = "";
         document.getElementById("numbers").classList.add("inactive");
       };
 
-      // 音声認識が開始されたときの処理
       recognition.onstart = function() {
         document.getElementById("numbers").classList.remove("inactive");
         document.getElementById("status").textContent = "認識中...";
         speakQuestion(); // 問題を読み上げる
       }
 
-      // 音声認識を開始
       recognition.start();
     }
 
@@ -177,11 +278,18 @@
         document.getElementById("status").textContent = "正解！";
         correctCount++;
         document.getElementById("score").textContent = "正解数: " + correctCount;
-        generateNumbers();
-        setTimeout(resetRecognition, 500); // 正解後、少し待ってから認識をリセット
+
+        // レベルに応じて問題生成関数を切り替え
+        if (currentLevel === 1) {
+          generateNumbersLevel1();
+        } else if (currentLevel === 2) {
+          generateNumbersLevel2();
+        }
+
+        setTimeout(resetRecognition, 500);
       } else {
         document.getElementById("status").textContent = "不正解、もう一度！";
-        setTimeout(resetRecognition, 500); // 不正解後、少し待ってから認識をリセット
+        setTimeout(resetRecognition, 500);
       }
     }
 
@@ -195,7 +303,12 @@
 
     // 問題を読み上げる関数
     function speakQuestion() {
-      const text = numbers.join(" たす ");
+      let text;
+      if (currentLevel === 1) {
+          text = numbers.join(" たす ");
+      } else if (currentLevel === 2) {
+          text = document.getElementById("numbers").textContent.replace('+', 'たす').replace('-', 'ひく').replace('*', 'かける').replace('/', 'わる');
+      }
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'ja-JP';
       speechSynthesis.speak(utterance);
@@ -203,9 +316,15 @@
 
     // 開始ボタンがクリックされたときの処理
     document.getElementById("startBtn").addEventListener("click", function() {
-      generateNumbers();
+      // レベルに応じて問題生成関数を切り替え
+      if (currentLevel === 1) {
+        generateNumbersLevel1();
+      } else if (currentLevel === 2) {
+        generateNumbersLevel2();
+      }
+
       startRecognition();
-      this.disabled = true; // 開始ボタンを無効化
+      this.disabled = true;
     });
   </script>
 </body>

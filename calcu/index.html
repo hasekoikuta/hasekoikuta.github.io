@@ -23,6 +23,11 @@
       margin-top: 10px;
       font-size: 16px;
     }
+    #recognizedText {
+      margin-top: 20px;
+      font-size: 16px;
+      color: blue;
+    }
   </style>
 </head>
 <body>
@@ -32,6 +37,7 @@
     <button id="startBtn">開始</button>
     <div id="result"></div>
     <div id="status"></div>
+    <div id="recognizedText"></div>
   </div>
 
   <script>
@@ -51,22 +57,26 @@
     function startRecognition() {
       recognition = new webkitSpeechRecognition() || new SpeechRecognition();
       recognition.lang = 'ja-JP';
-      recognition.continuous = false; // ★ここが修正点：連続モードを false に設定
-      recognition.interimResults = false; // ★ここが修正点：中間結果を false に設定
+      recognition.continuous = false;
+      recognition.interimResults = false;
 
       recognition.onresult = function(event) {
         const userSaid = event.results[0][0].transcript;
         document.getElementById("result").textContent = "あなたの回答: " + userSaid;
         checkAnswer(parseInt(userSaid));
+
+        // 認識されたテキストを表示
+        document.getElementById("recognizedText").textContent = "認識されたテキスト: " + userSaid;
       };
 
       recognition.onerror = function(event) {
         document.getElementById("status").textContent = "エラー: " + event.error;
+        document.getElementById("recognizedText").textContent = ""; // エラー時は認識テキストをクリア
       };
 
       recognition.onend = function() {
         document.getElementById("status").textContent = "音声認識は停止しました。";
-        // ここでは自動的に再開しないように変更
+        document.getElementById("recognizedText").textContent = ""; // 停止時も認識テキストをクリア
       };
 
       recognition.start();
@@ -76,20 +86,18 @@
     function checkAnswer(userAnswer) {
       if (userAnswer === answer) {
         document.getElementById("status").textContent = "正解！";
-        generateNumbers(); // 正解なら次の問題へ
-        // 正解した後に再度音声認識を開始
-        setTimeout(startRecognition, 1000); // 1秒後に音声認識を再開
+        generateNumbers();
+        setTimeout(startRecognition, 1000);
       } else {
         document.getElementById("status").textContent = "不正解、もう一度！";
-        // 不正解の場合も再度音声認識を開始
-        setTimeout(startRecognition, 1000); // 1秒後に音声認識を再開
+        setTimeout(startRecognition, 1000);
       }
     }
 
     document.getElementById("startBtn").addEventListener("click", function() {
       generateNumbers();
       startRecognition();
-      this.disabled = true; // 開始ボタンを無効化
+      this.disabled = true;
     });
   </script>
 </body>

@@ -116,10 +116,10 @@
         correctCount++;
         document.getElementById("score").textContent = "正解数: " + correctCount;
         generateNumbers();
-        setTimeout(startRecognition, 1000);
+        setTimeout(startRecognition, 500);
       } else {
         document.getElementById("status").textContent = "不正解、もう一度！";
-        setTimeout(startRecognition, 1000);
+        setTimeout(startRecognition, 500);
       }
     }
 

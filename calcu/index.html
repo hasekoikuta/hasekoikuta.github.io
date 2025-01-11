@@ -14,7 +14,7 @@
     #numbers {
       font-size: 24px;
       margin-bottom: 10px;
-      transition: color 0.3s; /* 色の変化を滑らかに */
+      transition: color 0.3s;
     }
     #numbers.inactive {
       color: gray;
@@ -82,12 +82,13 @@
 
       document.getElementById("numbers").textContent = numbers.join(" + ");
       document.getElementById("nextNumbers").textContent = "次の問題: " + nextNumbers.join(" + ");
-
-      // 問題生成時は灰色にする
       document.getElementById("numbers").classList.add("inactive");
     }
 
     function startRecognition() {
+        if (recognition && recognition.abort) {
+            recognition.abort();
+        }
       recognition = new webkitSpeechRecognition() || new SpeechRecognition();
       recognition.lang = 'ja-JP';
       recognition.continuous = false;
@@ -96,8 +97,12 @@
       recognition.onresult = function(event) {
         const userSaid = event.results[0][0].transcript;
         document.getElementById("result").textContent = "あなたの回答: " + userSaid;
-        checkAnswer(parseInt(userSaid));
         document.getElementById("recognizedText").textContent = "認識されたテキスト: " + userSaid;
+
+        // 正誤判定は遅れて行う
+        setTimeout(() => {
+          checkAnswer(parseInt(userSaid));
+        }, 0);
       };
 
       recognition.onerror = function(event) {
@@ -108,31 +113,35 @@
       recognition.onend = function() {
         document.getElementById("status").textContent = "音声認識は停止しました。";
         document.getElementById("recognizedText").textContent = "";
-
-        // 音声認識が停止したら灰色にする
         document.getElementById("numbers").classList.add("inactive");
+
+        // 新しい問題の生成と次の認識の開始をここで行う
+        if (document.getElementById("status").textContent !== "正解！") {
+            generateNumbers();
+            setTimeout(startRecognition, 0);
+        }
       };
 
       recognition.onstart = function() {
-        // 音声認識が始まったら色を戻す
         document.getElementById("numbers").classList.remove("inactive");
-      }
+        document.getElementById("status").textContent = "音声認識中...";
+      };
 
       recognition.start();
-      document.getElementById("status").textContent = "音声認識中...";
     }
 
     function checkAnswer(userAnswer) {
-      if (userAnswer === answer) {
-        document.getElementById("status").textContent = "正解！";
-        correctCount++;
-        document.getElementById("score").textContent = "正解数: " + correctCount;
-        generateNumbers();
-        setTimeout(startRecognition, 500);
-      } else {
-        document.getElementById("status").textContent = "不正解、もう一度！";
-        setTimeout(startRecognition, 500);
-      }
+        if (userAnswer === answer) {
+            document.getElementById("status").textContent = "正解！";
+            correctCount++;
+            document.getElementById("score").textContent = "正解数: " + correctCount;
+
+            // 正解の場合は即座に新しい問題を表示し、認識を開始
+            generateNumbers();
+            setTimeout(startRecognition, 0);
+        } else {
+            document.getElementById("status").textContent = "不正解、もう一度！";
+        }
     }
 
     document.getElementById("startBtn").addEventListener("click", function() {

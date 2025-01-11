@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>暗算チャレンジ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    #container {
+      width: 300px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    #numbers {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    #result {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+    #status {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>暗算チャレンジ</h1>
+    <div id="numbers"></div>
+    <button id="startBtn">開始</button>
+    <div id="result"></div>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    let numbers = [];
+    let answer = 0;
+    let recognition = null;
+
+    function generateNumbers() {
+      numbers = [];
+      for (let i = 0; i < 4; i++) {
+        numbers.push(Math.floor(Math.random() * 9) + 1);
+      }
+      answer = numbers.reduce((sum, num) => sum + num, 0);
+      document.getElementById("numbers").textContent = numbers.join(" + ");
+    }
+
+    function startRecognition() {
+      recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+      recognition.lang = 'ja-JP';
+      recognition.onresult = function(event) {
+        const userSaid = event.results[0][0].transcript;
+        document.getElementById("result").textContent = "あなたの回答: " + userSaid;
+        checkAnswer(parseInt(userSaid));
+      };
+      recognition.onerror = function(event) {
+        document.getElementById("status").textContent = "エラー: " + event.error;
+      };
+      recognition.onend = function() {
+        document.getElementById("status").textContent = "音声認識は停止しました。";
+      };
+      recognition.start();
+      document.getElementById("status").textContent = "音声認識中...";
+    }
+
+    function checkAnswer(userAnswer) {
+      if (userAnswer === answer) {
+        document.getElementById("status").textContent = "正解！";
+        generateNumbers(); // 正解なら次の問題へ
+        resetRecognition(); // 音声認識をリセット
+      } else {
+        document.getElementById("status").textContent = "不正解、もう一度！";
+        resetRecognition(); // 音声認識をリセット
+      }
+    }
+
+    function resetRecognition() {
+      if (recognition) {
+        recognition.stop();
+      }
+      startRecognition(); // 再度音声認識を開始
+    }
+
+    document.getElementById("startBtn").addEventListener("click", function() {
+      generateNumbers();
+      startRecognition();
+      this.disabled = true; // 開始ボタンを無効化
+    });
+  </script>
+</body>
+</html>

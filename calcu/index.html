@@ -164,6 +164,7 @@
       recognition.onstart = function() {
         document.getElementById("numbers").classList.remove("inactive");
         document.getElementById("status").textContent = "認識中...";
+        speakQuestion(); // 問題を読み上げる
       }
 
       // 音声認識を開始
@@ -203,7 +204,6 @@
     // 開始ボタンがクリックされたときの処理
     document.getElementById("startBtn").addEventListener("click", function() {
       generateNumbers();
-      speakQuestion(); // 問題を読み上げる
       startRecognition();
       this.disabled = true; // 開始ボタンを無効化
     });

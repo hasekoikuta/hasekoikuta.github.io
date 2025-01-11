@@ -5,16 +5,25 @@
   <style>
     body {
       font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
     }
     #container {
-      width: 300px;
-      margin: 0 auto;
+      width: 400px;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
     #numbers {
-      font-size: 24px;
-      margin-bottom: 10px;
+      font-size: 36px;
+      margin-bottom: 20px;
       transition: color 0.3s; /* 色の変化を滑らかに */
+      min-height: 50px; /*ちらつき防止*/
     }
     #numbers.inactive {
       color: gray;
@@ -23,23 +32,41 @@
       font-size: 18px;
       margin-bottom: 20px;
       color: gray;
+      min-height: 30px;/*ちらつき防止*/
+    }
+    #startBtn {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    #startBtn:disabled{
+      opacity: 0.6;
+      cursor: default;
     }
     #result {
-      font-size: 20px;
+      font-size: 24px;
       margin-top: 20px;
+      min-height: 35px;/*ちらつき防止*/
     }
     #status {
       margin-top: 10px;
-      font-size: 16px;
+      font-size: 20px;
+      color: #333;
+      min-height: 30px;/*ちらつき防止*/
     }
     #recognizedText {
       margin-top: 20px;
-      font-size: 16px;
+      font-size: 18px;
       color: blue;
+      min-height: 30px;/*ちらつき防止*/
     }
     #score {
       margin-top: 20px;
-      font-size: 16px;
+      font-size: 18px;
     }
   </style>
 </head>
@@ -52,7 +79,7 @@
     <div id="result"></div>
     <div id="status"></div>
     <div id="recognizedText"></div>
-    <div id="score"></div>
+    <div id="score">正解数: 0</div>
   </div>
 
   <script>
@@ -62,83 +89,123 @@
     let nextAnswer = 0;
     let recognition = null;
     let correctCount = 0;
+    let isFirstQuestion = true; // 初回問題かどうかのフラグ
 
+    // 1桁の数字4つを生成し、合計を計算する関数
     function generateNumbers() {
-      if (nextNumbers.length === 0) {
+      // 次の問題が用意されていればそれを使う
+      if (nextNumbers.length > 0) {
+        numbers = nextNumbers;
+        answer = nextAnswer;
+      } else {
+        // 1桁の数字を4つ生成
+        numbers = [];
         for (let i = 0; i < 4; i++) {
           numbers.push(Math.floor(Math.random() * 9) + 1);
         }
+        // 生成した数字の合計を計算
         answer = numbers.reduce((sum, num) => sum + num, 0);
-      } else {
-        numbers = nextNumbers;
-        answer = nextAnswer;
       }
 
+      // 次の問題を生成
       nextNumbers = [];
       for (let i = 0; i < 4; i++) {
         nextNumbers.push(Math.floor(Math.random() * 9) + 1);
       }
+      // 次の問題の合計を計算
       nextAnswer = nextNumbers.reduce((sum, num) => sum + num, 0);
 
+      // HTMLに現在の問題と次の問題を反映
       document.getElementById("numbers").textContent = numbers.join(" + ");
       document.getElementById("nextNumbers").textContent = "次の問題: " + nextNumbers.join(" + ");
 
-      // 問題生成時は灰色にする
-      document.getElementById("numbers").classList.add("inactive");
+      // 初回問題の場合は、数字をグレーにしない
+      if(!isFirstQuestion){
+        document.getElementById("numbers").classList.add("inactive");
+      } else {
+        isFirstQuestion = false; // 次回からはグレーにする
+      }
     }
 
+    // 音声認識を開始する関数
     function startRecognition() {
-      recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+      // 新しい音声認識オブジェクトを作成
+      recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
       recognition.lang = 'ja-JP';
-      recognition.continuous = false;
-      recognition.interimResults = false;
+      recognition.continuous = false; // 連続的な認識は無効
+      recognition.interimResults = false; // 中間結果は無効
 
+      // 音声認識が結果を返したときの処理
       recognition.onresult = function(event) {
         const userSaid = event.results[0][0].transcript;
         document.getElementById("result").textContent = "あなたの回答: " + userSaid;
-        checkAnswer(parseInt(userSaid));
         document.getElementById("recognizedText").textContent = "認識されたテキスト: " + userSaid;
+        checkAnswer(parseInt(userSaid)); // ユーザーの回答をチェック
       };
 
+      // 音声認識でエラーが発生したときの処理
       recognition.onerror = function(event) {
         document.getElementById("status").textContent = "エラー: " + event.error;
         document.getElementById("recognizedText").textContent = "";
+        // エラー後も認識を再開
+        if (event.error !== 'no-speech') {
+          setTimeout(resetRecognition, 500);
+        }
       };
 
+      // 音声認識が終了したときの処理
       recognition.onend = function() {
-        document.getElementById("status").textContent = "音声認識は停止しました。";
+        document.getElementById("status").textContent = "待機中";
         document.getElementById("recognizedText").textContent = "";
-
-        // 音声認識が停止したら灰色にする
         document.getElementById("numbers").classList.add("inactive");
       };
 
+      // 音声認識が開始されたときの処理
       recognition.onstart = function() {
-        // 音声認識が始まったら色を戻す
         document.getElementById("numbers").classList.remove("inactive");
+        document.getElementById("status").textContent = "認識中...";
       }
 
+      // 音声認識を開始
       recognition.start();
-      document.getElementById("status").textContent = "音声認識中...";
     }
 
+    // ユーザーの回答をチェックする関数
     function checkAnswer(userAnswer) {
       if (userAnswer === answer) {
         document.getElementById("status").textContent = "正解！";
         correctCount++;
         document.getElementById("score").textContent = "正解数: " + correctCount;
         generateNumbers();
-        setTimeout(startRecognition, 500);
+        setTimeout(resetRecognition, 500); // 正解後、少し待ってから認識をリセット
       } else {
         document.getElementById("status").textContent = "不正解、もう一度！";
-        setTimeout(startRecognition, 500);
+        setTimeout(resetRecognition, 500); // 不正解後、少し待ってから認識をリセット
       }
     }
 
+    // 音声認識をリセットする関数
+    function resetRecognition() {
+      if (recognition) {
+        recognition.stop();
+      }
+      startRecognition();
+    }
+
+    // 問題を読み上げる関数
+    function speakQuestion() {
+      const text = numbers.join(" たす ");
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ja-JP';
+      speechSynthesis.speak(utterance);
+    }
+
+    // 開始ボタンがクリックされたときの処理
     document.getElementById("startBtn").addEventListener("click", function() {
       generateNumbers();
+      speakQuestion(); // 問題を読み上げる
       startRecognition();
-      this.disabled = true;
+      this.disabled = true; // 開始ボタンを無効化
     });
   </script>
 </body>
